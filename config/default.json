@@ -1,6 +1,0 @@
-{
-    "mongoURI" : "mongodb+srv://admin123:admin123@shopify-test.tunac.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    "jwtSecret": "mysecrettoken",
-    "githubClientId":"c39ccbb2bbb68b4e707b",
-    "githubSecret": "391e2bc2c605bc62e154c3ee143ff79d03018976"
-}

@@ -15,10 +15,10 @@ const DeleteButton = ({id, deleteProduct}) => {
                     activator={activator}
                     open={active}
                     onClose={onChange}
-                    title="Reach more shoppers with Instagram product tags"
+                    title="Are you sure want to delete this?"
                     primaryAction={{
                     content: 'Delete',
-                    onAction: () => deleteProduct(id),
+                    onAction: () => {deleteProduct(id); setActive(!active)},
                     }}
                     secondaryActions={[
                     {

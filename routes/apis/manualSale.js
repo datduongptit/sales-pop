@@ -72,13 +72,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         let {firstName, lastName, city, publishOrder, product, order} = req.body;
-        let manualFeilds = {
-            // firstName: firstName, 
-            // lastName: lastName,
-            // city: city,
-            // publishOrder: publishOrder,
-            // product: product
-        }
+        let manualFeilds = {};
         if(firstName) manualFeilds.firstName = firstName;
         if(lastName) manualFeilds.lastName = lastName;
         if(city) manualFeilds.city = city;
@@ -104,7 +98,32 @@ router.put('/:id', async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-})
+});
+
+// Update publish order
+// router.put('/publishOrder/:id', async (req, res) => {
+//     try {
+//         const {publishOrder} = req.body;
+//         let feild = {};
+//         if(publishOrder) feild.publishOrder = JSON.parse(publishOrder);
+
+//         let manualSale = await ManualSale.findById(re.params.id);
+//         if(!manualSale) {
+//             return res.status(404).json({msg: 'Post not found'})
+//         }
+//         else {
+//             manualSale = await ManualSale.findOneAndUpdate(
+//                 {_id: req.params.id},
+//                 {$set: manualFeilds},
+//                 {new: true}
+//             );
+//             return res.json(manualSale);
+//         }
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server Error');
+//     }
+// })
 
 // delete Manual Sale
 router.delete('/:id', async (req, res) => {

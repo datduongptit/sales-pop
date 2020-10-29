@@ -37,8 +37,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
       order: ''
     }
     const [formData, setFormData] = useState(initialState);
-    formData.publishOrder = checked;
-    const {publishOrder} = formData;
+    formData.publishOrder = JSON.stringify(checked);
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
     // console.log(formData);
     const onSubmit = async (e) => {
@@ -75,7 +74,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
                           <TextStyle variation='strong'>Publish Order</TextStyle>
                       </Layout.Section>
                       <Layout.Section>
-                          <input type='checkbox' name='pulishOrder' value={products.publishOrder} defaultChecked={checked} onChange={() => setChecked(!checked)} />
+                          <input type='checkbox' name='pulishOrder' value={products.publishOrder} defaultChecked={Boolean(checked)} onChange={() => setChecked(!checked)} />
                       </Layout.Section> 
                   </Layout>
                 </div>

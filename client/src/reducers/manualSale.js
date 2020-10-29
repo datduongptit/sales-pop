@@ -4,7 +4,7 @@ import {
     EDIT_PRODUCT,
     DELETE_PRODUCT,
     ADD_PRODUCT,
-    PRODUCT_ERROR
+    PRODUCT_ERROR,
 } from '../constants/constants';
 
 const initialState = {

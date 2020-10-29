@@ -16,7 +16,7 @@ const Notification = (effect) => {
                                     <img className='img_demo' alt='nothing' src={logo} />  
                                 </div>                          
                                 <div md='8' xs='8' style={{padding: '0 15px'}} >
-                                    <a onClick={handleChange} className='hide_demo'>
+                                    <a href='#' onClick={handleChange} className='hide_demo'>
                                         <i className="fa fa-times"></i>
                                     </a>
                                     <h5>Omega in Ha Noi, Viet Nam purchased</h5>

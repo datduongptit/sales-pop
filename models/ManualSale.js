@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ManualSaleSchema = new Schema({
-    checked: {
-        type: Boolean,
+    publishOrder: {
+        type: String,
     },
     firstName: {
         type: String,

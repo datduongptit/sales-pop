@@ -206,6 +206,10 @@
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
+  position: fixed;
+  z-index: 100;
+  top: 15vh;
+  right: 0
 }
 
 .alert-primary {

@@ -45,10 +45,10 @@ const AddModal = ({addProduct, manualSale, getProduct}) => {
     
     const [formData, setFormData] = useState(initialState);
     
-    formData.publishOrder = checked;  
-    const {publishOrder, firstName, lastName, city, product, order} = formData;
+    formData.publishOrder = JSON.stringify(checked);  
+    const {firstName, lastName, city, product, order} = formData;
     const onChange = (e) =>  {setFormData({...formData, [e.target.name]: e.target.value})};
-    console.log(publishOrder);
+    // console.log(publishOrder);
 
     const onSubmit = (e) => {
       e.preventDefault();
@@ -59,7 +59,6 @@ const AddModal = ({addProduct, manualSale, getProduct}) => {
 
     const activator = <Button onClick={handleChange}>Add new manual sale</Button>;
     return (
-        <>
           <div className='mb-3'>
             <Modal
               large
@@ -181,7 +180,6 @@ const AddModal = ({addProduct, manualSale, getProduct}) => {
               </Modal.Section>
             </Modal>
           </div>
-        </>
     )
 }
 

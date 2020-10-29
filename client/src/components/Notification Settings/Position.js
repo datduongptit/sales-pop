@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react'
 import {TextStyle, Layout, Checkbox, Card} from '@shopify/polaris';
-import position_1 from '../../../images/position_1.png'
-import position_2 from '../../../images/position_2.jpg'
-import position_3 from '../../../images/position_3.jpg'
-import position_4 from '../../../images/position_4.jpg'
+import position_1 from '../../images/position_1.png'
+import position_2 from '../../images/position_2.jpg'
+import position_3 from '../../images/position_3.jpg'
+import position_4 from '../../images/position_4.jpg'
 // import { Card } from 'reactstrap';
 const Position = () => {
     const [checked1, setChecked1] = useState(false);

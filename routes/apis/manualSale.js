@@ -4,19 +4,19 @@ const {check, validationResult} = require('express-validator');
 
 const ManualSale = require('../../models/ManualSale');
 
-// post request
+// create manual sales
 router.post('/', [
-    check('firstName', 'Firstname is required').not().isEmpty(),
-    check('lastName', 'Lastname is required').not().isEmpty(),
-    check('city', 'City is required').not().isEmpty(),
+    // check('firstName', 'Firstname is required').not().isEmpty(),
+    // check('lastName', 'Lastname is required').not().isEmpty(),
+    // check('city', 'City is required').not().isEmpty(),
     // check('publishOrder', 'PublishOrder is required').not().isEmpty(),
-    // check('product', 'Product is required').not().isEmpty()
+    check('product', 'Product is required').not().isEmpty()
 ], async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()})
     }
-    const {firstName, lastName, city, publishOrder, product} = req.body;
+    const {firstName, lastName, city, publishOrder, product, order} = req.body;
     try {
         const newManualSale = new ManualSale({
             publishOrder: publishOrder,
@@ -24,7 +24,7 @@ router.post('/', [
             firstName: firstName,
             lastName: lastName,
             city: city,
-            // order: req.body.order
+            order: order
         });
 
 
@@ -49,7 +49,7 @@ router.get('/', async(req, res) => {
     }
 })
 
-// get Manual Sale by params ID
+// get  Manual Sale by params ID
 router.get('/:id', async (req, res) => {
     try {
         const manualSale = await ManualSale.findById(req.params.id);
@@ -59,6 +59,47 @@ router.get('/:id', async (req, res) => {
         }
 
         res.json(manualSale);
+    } catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Post not found' })
+        }
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
+// update manualsales 
+router.put('/:id', async (req, res) => {
+    try {
+        let {firstName, lastName, city, publishOrder, product, order} = req.body;
+        let manualFeilds = {
+            // firstName: firstName, 
+            // lastName: lastName,
+            // city: city,
+            // publishOrder: publishOrder,
+            // product: product
+        }
+        if(firstName) manualFeilds.firstName = firstName;
+        if(lastName) manualFeilds.lastName = lastName;
+        if(city) manualFeilds.city = city;
+        if(publishOrder) manualFeilds.publishOrder = publishOrder;
+        if(product) manualFeilds.product = product;
+        if(order) manualFeilds.order = order;
+
+        let manualSale = await ManualSale.findById(req.params.id);
+
+        if(!manualSale) {
+            return res.status(404).json({msg: 'Post not found'})
+        }
+        else {
+            manualSale = await ManualSale.findOneAndUpdate(
+                {_id: req.params.id},
+                {$set: manualFeilds},
+                {new: true}
+            );
+            return res.json(manualSale);
+        }
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react'
 // import 'bootstrap/dist/css/bootstrap.css'; 
-import logo from '../../../images/logo192.png';
+import logo from '../../images/logo192.png';
 import {connect} from 'react-redux'
 
 const Notification = (effect) => {

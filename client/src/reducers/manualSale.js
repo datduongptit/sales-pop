@@ -1,6 +1,7 @@
 import { 
     GET_PRODUCTS, 
     GET_PRODUCT,
+    EDIT_PRODUCT,
     DELETE_PRODUCT,
     ADD_PRODUCT,
     PRODUCT_ERROR
@@ -26,6 +27,7 @@ export default function (state = initialState, action) {
                 product: payload,
             };
         case ADD_PRODUCT:
+        case EDIT_PRODUCT:
             return {
                 ...state, 
                 products: [payload, ...state.products],

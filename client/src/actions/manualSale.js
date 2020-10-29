@@ -12,11 +12,13 @@ import {
 // Get all product
 export const getProducts = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/manualSale')
+    const res = await axios.get('/api/manualSale');
+    console.log(res);
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
     })
+    // dispatch(setAlert('Update the product success', 'success'));
   } catch (err) {
     dispatch({
       type: PRODUCT_ERROR,
@@ -41,10 +43,16 @@ export const addProduct = (formData) => async (dispatch) => {
     })
     dispatch(setAlert('Product Created', 'success'));
   } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => {
+        dispatch(setAlert(error.msg, 'danger'));
+      });
+    }
     dispatch({
       type: PRODUCT_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    })
+    });
   }
 }
 
@@ -62,6 +70,28 @@ export const getProduct = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_ERROR,
     payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+// Update product
+export const updateProduct = (id, formData) => async (dispatch) =>{
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const res = await axios.put(`/api/manualSale/${id}`, formData, config);
+    dispatch({
+      type: EDIT_PRODUCT,
+      payload: res.data
+    })
+    dispatch(setAlert('Update the product success', 'success'))
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     })
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import AddNewSale from './ManualSale/AddNewSale'
+import AddNewSale from '../ManualSale/AddNewSale'
 
 const ManualSale = () => {
     return (

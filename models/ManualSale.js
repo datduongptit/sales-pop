@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ManualSaleSchema = new Schema({
-    publishOrder: {
+    checked: {
         type: Boolean,
     },
     firstName: {
@@ -22,8 +22,8 @@ const ManualSaleSchema = new Schema({
         require: true,
     },
     order: {
-        type: Date,
-        default: Date.now(),
+        type: String,
+        // default: Date.now(),
     }
 
 })

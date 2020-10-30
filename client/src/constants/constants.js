@@ -7,3 +7,4 @@ export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const PRODUCT_ERROR = 'PRODUCT_ERROR';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const PUBLISH_PRODUCT = 'PUBLISH_PRODUCT';

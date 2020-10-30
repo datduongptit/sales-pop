@@ -5,7 +5,7 @@ import Header from './components/header/Header'
 import Navbar from './components/header/Navbar';
 import Views from './components/contents/Views'; 
 import store from './store';
-import Alert from './components/Alert';
+
 function App() {
   return (
       <Provider store={store}>

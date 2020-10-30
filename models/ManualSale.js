@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const ManualSaleSchema = new Schema({
     publishOrder: {
-        type: String,
+        type: Boolean,
+        default: true
     },
     firstName: {
         type: String,

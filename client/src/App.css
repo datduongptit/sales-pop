@@ -208,7 +208,7 @@
   color: #333;
   position: fixed;
   z-index: 100;
-  top: 15vh;
+  top: 2vh;
   right: 0
 }
 
@@ -229,14 +229,14 @@
 
 .alert-danger {
   background: var(--danger-color);
-  width: 30%;
+  width: 25%;
   color: #fff;
 }
 
 .alert-success {
   background: var(--success-color);
   color: #fff;
-  width: 30%;
+  width: 25%;
   align-items: center;
 }
 

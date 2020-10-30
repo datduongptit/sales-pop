@@ -5,6 +5,7 @@ import {
     DELETE_PRODUCT,
     ADD_PRODUCT,
     PRODUCT_ERROR,
+    PUBLISH_PRODUCT
 } from '../constants/constants';
 
 const initialState = {
@@ -27,10 +28,16 @@ export default function (state = initialState, action) {
                 product: payload,
             };
         case ADD_PRODUCT:
-        case EDIT_PRODUCT:
             return {
                 ...state, 
-                products: [payload, ...state.products],
+                products: [payload, ...state.products]
+            };
+        case EDIT_PRODUCT:
+        case PUBLISH_PRODUCT:
+            return {
+                ...state, 
+                // product: [payload, ...state.product]
+                products: state.products.filter((product) => product._id !== payload)
             };
         case DELETE_PRODUCT:
             return {

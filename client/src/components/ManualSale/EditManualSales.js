@@ -17,15 +17,18 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
     ]
     
 
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(products.publishOrder);
     // const handleChangeCheck = useCallback((newChecked) => setChecked(newChecked), []);
+    useEffect(() => {
+      setChecked(products.publishOrder);
+    }, [products.publishOrder])
 
     const options = [
       {label: 'Select Customer', value: 'Select Customer'},
-      {label: 'Add Customer', value: 'Add Customer'}
+      {label: 'Edit Customer', value: 'Edit Customer'}
     ];
 
-    const [selected, setSelected] = useState('Select Customer');
+    const [selected, setSelected] = useState('Edit Customer');
     const handleSelectChange = useCallback((value) => setSelected(value), []);
 
     const initialState = {
@@ -55,7 +58,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
               activator={activator}
               open={active}
               onClose={handleChange}
-              title="Add Order Product"
+              title="Edit Order Product"
               primaryAction={{
                 content: 'OK',
                 onAction: onSubmit,
@@ -94,10 +97,11 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
                         </div>
                     </Layout.Section>
                   </Layout> 
+                    {selected === 'Edit Customer' ? (
                     <div className="mt-3">
                       <Layout >
                         <Layout.Section secondary>
-                                <TextStyle variation='strong'>Add Customer</TextStyle>
+                                <TextStyle variation='strong'>Edit Customer</TextStyle>
                         </Layout.Section>
                         <Layout.Section>
                             <div className="mb-3">
@@ -111,8 +115,8 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
                             </div>
                         </Layout.Section>
                       </Layout>
-                    </div>
-                </div>
+                    </div> ) : '' }
+                  </div>
 
                 {/* <SelectCustomer /> */}
                 <div>

@@ -7,6 +7,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   PRODUCT_ERROR,
+  PUBLISH_PRODUCT
 } from '../constants/constants'
 
 // Get all product
@@ -28,26 +29,27 @@ export const getProducts = () => async (dispatch) => {
 }
 
 // publish
-// export const publishOrder = (id, value) => async (dispatch) => {
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   }
-//   try {
-//     const res = await axios.put(`/api/manualSale/publishOrder/${id}`, value, config);
-//     dispatch({
-//       type: PUBLISH_PRODUCT,
-//       payload: res.data
-//     })
-//     dispatch(setAlert('Publish the product success', 'success'))
-//   } catch (err) {
-//     dispatch({
-//       type: PRODUCT_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     })
-//   }
-// }
+export const publishOrders = (id, value) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const res = await axios.put(`/api/manualSale/publishOrder/${id}`, value, config);
+    dispatch({
+      type: PUBLISH_PRODUCT,
+      payload: res.data,
+    })
+    dispatch(setAlert('Change publish the product successful', 'success'));
+
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
 
 // Add product
 export const addProduct = (formData) => async (dispatch) => {

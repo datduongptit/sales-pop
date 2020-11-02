@@ -38,9 +38,9 @@ router.post('/', async (req, res) => {
     if(to) realtimeFields.customView.to = to;
     
     try {
-        let realtime = await Realtime.findOne();
+        let realtime = await Realtime.find();
         if(realtime) {
-            realtime = await Realtime.update(
+            realtime = await Realtime.findOneAndUpdate(
                 {},
                 {$set: realtimeFields},
                 {new: true}
@@ -48,6 +48,7 @@ router.post('/', async (req, res) => {
             return res.json(realtime);
         }
     
+        // create
         realtime = new Realtime(realtimeFields);
         await realtime.save();
         res.json(realtime);

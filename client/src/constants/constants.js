@@ -8,3 +8,6 @@ export const GET_PRODUCT = 'GET_PRODUCT';
 export const PRODUCT_ERROR = 'PRODUCT_ERROR';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const PUBLISH_PRODUCT = 'PUBLISH_PRODUCT';
+export const ADD_REALTIME = 'ADD_REALTIME';
+export const GET_REALTIME = 'GET_REALTIME';
+export const REALTIME_ERROR = 'REALTIME_ERROR';

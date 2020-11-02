@@ -14,7 +14,6 @@ import {
 export const getProducts = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/manualSale');
-    console.log(res);
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,

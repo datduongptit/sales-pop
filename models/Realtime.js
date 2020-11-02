@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const RealtimeSchema = new mongoose.Schema({
     showProduct: {
-        type: String
+        type: Boolean
     }, 
     backgroundLeft: {
     type: String
@@ -13,7 +13,7 @@ const RealtimeSchema = new mongoose.Schema({
     backgroundColor: {
         type: String
     },
-    custiomView: {
+    customView: {
         from: {
             type: Number
         },

@@ -30,7 +30,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
 
     const [selected, setSelected] = useState('Edit Customer');
     const handleSelectChange = useCallback((value) => setSelected(value), []);
-
+    console.log(products);
     const initialState = {
       publishOrder: '',
       firstName: '',

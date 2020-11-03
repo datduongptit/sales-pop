@@ -1,50 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Button} from '@shopify/polaris';
-import ShowOrder from '../Notification Settings/ShowOrder';
-import SelectOrder from '../Notification Settings/SelectOrder';
-import ShowCustom from '../Notification Settings/ShowCustom';
-import OrderStatus from '../Notification Settings/OrderStatus';
-import DisplayTime from '../Notification Settings/DisplayTime';
-import SelectDate from '../Notification Settings/SelectDate';
-import SelectDevice from '../Notification Settings/SelectDevice';
-import CustomsText from '../Notification Settings/CustomsText';
-import MessageEffect from '../Notification Settings/MessageEffect';
-import Position from '../Notification Settings/Position';
-import ColorPick from '../Notification Settings/ColorPicker';
-import NotifyFooter from '../Notification Settings/NotifyFooter';
-
-const NotificationSettings = () => { 
+import NotificationSetting from '../Notification Settings/NotificationSetting';
+import Alert from '../Alert'
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {getNotification} from '../../actions/notification'
+const NotificationSettings = ({getNotification, notification: {notification}}) => { 
+    useEffect(() => {
+        getNotification();
+    }, [])
     return (
         <div className='container'>
+            <Alert />
             <div style={{textAlign:'right'}}>
                 <Button primary>SYNC DATA</Button>
             </div>
-            <ShowOrder />  
-
-            <SelectOrder />
-
-            <ShowCustom />
-             
-            <OrderStatus />
-            
-            <DisplayTime />
-
-            <SelectDate />
-
-            <SelectDevice />
-
-            <CustomsText />
-
-            <MessageEffect />
-
-            <Position />
-
-            <ColorPick />
-
-            <NotifyFooter />
+            {notification.map((item, index) => (
+                <NotificationSetting notification={item} key={index}/>
+            ))}
+            {/* <NotificationSetting/> */}
 
         </div>
     )
 }
 
-export default NotificationSettings
+NotificationSettings.propTypes = {
+    getNotification: PropTypes.func.isRequired,
+    notification: PropTypes.object.isRequired
+  }
+
+const mapStateToProps = (state) => ({
+    notification: state.notification
+})
+
+
+export default connect(mapStateToProps, {getNotification})(NotificationSettings)

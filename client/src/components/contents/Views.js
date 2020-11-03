@@ -5,7 +5,7 @@ import ManualSale from './ManualSale';
 import RealtimeSettings from './RealtimeSettings';
 
 const Views = () => {
-    const [selected, setSelected] = useState(2);
+    const [selected, setSelected] = useState(0);
 
   const handleTabChange = useCallback(
     (selectedTabIndex) => setSelected(selectedTabIndex),

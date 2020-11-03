@@ -112,13 +112,13 @@ const AddModal = ({addProduct, manualSale, getProduct}) => {
                         </Layout.Section>
                         <Layout.Section>
                             <div className="mb-3">
-                                <input required className=" input-form" name='firstName' value={firstName} onChange={onChange} placeholder='First name' />
+                                <input required className="input-form" name='firstName' value={firstName} onChange={onChange} placeholder='First name' />
                             </div>
                             <div className="mb-3">
-                                <input className=" input-form" name='lastName' value={lastName} onChange={onChange} placeholder='Last name' />
+                                <input className="input-form" name='lastName' value={lastName} onChange={onChange} placeholder='Last name' />
                             </div>
                             <div className="mb-3">
-                                <input className=" input-form" name='city' value={city} onChange={onChange} placeholder='City' />
+                                <input className="input-form" name='city' value={city} onChange={onChange} placeholder='City' />
                             </div>
                         </Layout.Section>
                       </Layout>

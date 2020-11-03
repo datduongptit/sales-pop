@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect} from 'react';
 import {TextStyle, Layout, RadioButton, Select, Button, Icon, Form} from '@shopify/polaris';
 import {
     QuestionMarkMajor
@@ -6,16 +6,18 @@ import {
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {addRealtimeSetting, getRealtimeSetting} from '../../actions/realtime';
-import position_1 from '../../images/position_1.png'
-import position_2 from '../../images/position_2.jpg'
-import position_3 from '../../images/position_3.jpg'
-import position_4 from '../../images/position_4.jpg'
+import position_1 from '../../images/position_1.png';
+import position_2 from '../../images/position_2.jpg';
+import position_3 from '../../images/position_3.jpg';
+import position_4 from '../../images/position_4.jpg';
 
-const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetting}) => {
+
+const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtimeSetting}) => {
     useEffect(() => {
-        getRealtimeSetting()
-    }, [])
-    const [checked, setChecked] = useState(false);
+        getRealtimeSetting();
+        }, [getRealtimeSetting]);
+    
+    const [checked, setChecked] = useState('gradient');
     const handleChange = useCallback(
         (_checked, newValue) => setChecked(newValue),
         [],
@@ -26,14 +28,14 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
         {label: 'Random views', value: 'Random views'},
     ];
 
-    const [positionValue, setPosition] = useState('');
+    const [positionValue, setPosition] = useState(realtimeSetting.position);
 
     const handleChangePosition = useCallback(
       (_checked, newValue) => setPosition(newValue),
       [],
     );
 
-    const [orderChecked, setOrderChecked] = useState(false);
+    const [orderChecked, setOrderChecked] = useState(realtimeSetting.showProduct);
 
     const [selected, setSelected] = useState('Correct views');
 
@@ -41,13 +43,13 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
 
     const initialState = {
         showProduct: '',
-        backgroundLeft: '#4E67CA',
-        backgroundRight: '#000000',
-        backgroundColor: '#08244A',
-        to: '', 
-        from: '',
+        backgroundLeft: '',
+        backgroundRight: '',
+        backgroundColor: '',
+        to: '0', 
+        from: '0',
         customText: 'Testing',
-        colorText: '#ffffff',
+        colorText: '',
         position: '',
     }
 
@@ -60,7 +62,6 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
         e.preventDefault();
         addRealtimeSetting(formData);
     }
-    console.log(realtime);
     return (
     <form onSubmit={onSubmit}>
         <div className='mb-3 mt-3'>
@@ -69,7 +70,7 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                     <TextStyle variation='strong'>Show Order Notifications</TextStyle>
                 </Layout.Section>
                 <Layout.Section>
-                    <input type='checkbox' name='orderChecked' value={orderChecked} defaultChecked={orderChecked} onChange={() => setOrderChecked(!orderChecked)} />
+                    <input type='checkbox' name='orderChecked' value={realtimeSetting.showProduct} defaultChecked={orderChecked} onChange={() => setOrderChecked(!orderChecked)} />
                 </Layout.Section> 
             </Layout>
         </div>
@@ -87,13 +88,18 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                                 id='gradient'
                                 name='checked'
                             />
-                            <div className='gradient' style={{background: `linear-gradient(90deg,${backgroundLeft}, ${backgroundRight})`, color: `${colorText}`}}> {customText} </div>
+                            <div className='gradient' style={{background: `linear-gradient(90deg,${realtimeSetting.backgroundLeft}, ${realtimeSetting.backgroundRight})`, color: `${realtimeSetting.colorText}`}}><span style={{color:`${realtimeSetting.colorText}`, fontWeight:600, marginLeft: 50, marginTop: 50, alignItems: 'center', fontSize: 16}}> {realtimeSetting.customText} </span></div>
                         </Layout.Section>
-                        <div className="mt-3 mb-3">
-                            <span style={{fontWeight:600, padding: 15}}>Background left</span>
-                            <input type='color' name='backgroundLeft' value={backgroundLeft} className='color' onChange={onChange} />
-                            <span style={{fontWeight:600, padding: 15}}>Background right</span>
-                            <input type='color' name='backgroundRight' value={backgroundRight} className='color' onChange={onChange} />
+                        <div className="mt-3 mb-3" style={{display:'flex'}}>
+                            <div>
+                                <span style={{fontWeight:600}}>Background left </span>
+                                <input type='color' name='backgroundLeft' defaultValue={realtimeSetting.backgroundLeft} className='color' onChange={onChange} />
+                            </div>
+                            <div>
+                                <span style={{fontWeight:600}}>Background right </span>
+                                <input type='color' name='backgroundRight' defaultValue={realtimeSetting.backgroundRight} className='color' onChange={onChange} />
+                            </div>
+                                
                         </div>
                 </Layout.Section> 
                 <Layout.Section oneThird>
@@ -105,10 +111,11 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                             id='backgroundColor'
                             name='checked'
                         />
-                        <div className='gradient' style={{backgroundColor: backgroundColor}}><span style={{color:`${colorText}`, fontWeight:600, marginLeft: 50, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText} </span></div>
+                        <div className='gradient' style={{backgroundColor: realtimeSetting.backgroundColor}}><span style={{color:`${realtimeSetting.colorText}`, fontWeight:600, marginLeft: 50, marginTop: 50, alignItems: 'center', fontSize: 16}}> {realtimeSetting.customText} </span></div>
                     </Layout.Section>
                     <div className="mt-3">
-                        <input type='color' name='backgroundColor' value={backgroundColor} className='color' onChange={onChange} />
+                        <span style={{fontWeight:600, padding: 15}}>Background Color</span>
+                        <input type='color' name='backgroundColor' defaultValue={realtimeSetting.backgroundColor} className='color' onChange={onChange} />
                     </div>
                 </Layout.Section> 
             </Layout>
@@ -126,15 +133,15 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                             value={selected}
                         />
                     </div>
-                        {selected === 'Random views' ? (
+                        { typeof(realtimeSetting.customView.from) === 'number' && selected === 'Random views'  ? (
                         <div className='mb-3'>
                             <div className='mb-3 ml-5'>
                                 <span style={{marginRight: 100, fontWeight:600}}>Min</span>
-                                <input type='number' name='from' value={from} onChange={onChange} className='input-ssm' />
+                                <input type='number' name='from' defaultValue={realtimeSetting.customView.from} onChange={onChange} className='input-ssm' />
                             </div>
                             <div className='mb-3 ml-5'>
                                 <span style={{marginRight: 100, fontWeight:600}}>Max</span>
-                                <input type='number' name='to' value={to} onChange={onChange} className='input-ssm' />
+                                <input type='number' name='to' defaultValue={realtimeSetting.customView.to} onChange={onChange} className='input-ssm' />
                             </div>
                         </div>
                     ) : ''} 
@@ -147,7 +154,7 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                     <TextStyle variation='strong'>Custom Text</TextStyle>      
                 </Layout.Section>
                 <Layout.Section>
-                    <input required className="input-form" name='customText' value={customText} onChange={onChange} />
+                    <input required className="input-form" name='customText' defaultValue={realtimeSetting.customText} onChange={onChange} />
                 </Layout.Section>
             </Layout>
         </div>
@@ -157,7 +164,7 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
                     <TextStyle variation='strong'>Color Text</TextStyle>
                 </Layout.Section>
                 <Layout.Section>
-                    <input value={colorText} name='colorText' onChange={onChange} type='color' className='color' />
+                    <input defaultValue={realtimeSetting.colorText} name='colorText' onChange={onChange} type='color' className='color' />
                 </Layout.Section>
             </Layout>
         </div>
@@ -248,11 +255,11 @@ const LayoutPopup = ({addRealtimeSetting, realtime: {realtime}, getRealtimeSetti
 LayoutPopup.propTypes = {
     addRealtimeSetting: PropTypes.func.isRequired,
     getRealtimeSetting: PropTypes.func.isRequired,
-    realtime: PropTypes.object.isRequired,
+    realtime: PropTypes.object.isRequired
   }
 
 const mapStateToProps = (state) => ({
-    realtime: state.realtime,
+    realtime: state.realtime
 })
 
 export default connect(mapStateToProps, {addRealtimeSetting, getRealtimeSetting})(LayoutPopup)

@@ -15,7 +15,7 @@ const notificationSchema = new Schema({
         type: Number
     },
     orderStatus: {
-        type: String
+        type: [String]
     },
     nextTimeDisplay: {
         type: Number

@@ -16,7 +16,6 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
       {label: 'Mouse', value: 'Mouse'},
     ]
     
-
     const [checked, setChecked] = useState(products.publishOrder);
     // const handleChangeCheck = useCallback((newChecked) => setChecked(newChecked), []);
     useEffect(() => {
@@ -30,7 +29,6 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
 
     const [selected, setSelected] = useState('Edit Customer');
     const handleSelectChange = useCallback((value) => setSelected(value), []);
-    console.log(products);
     const initialState = {
       publishOrder: '',
       firstName: '',

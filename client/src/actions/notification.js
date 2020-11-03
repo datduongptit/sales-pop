@@ -1,0 +1,54 @@
+import axios from 'axios';
+import {
+    ADD_NOTIFICATION,
+    GET_NOTIFICATION,
+    NOTIFICATION_ERROR
+} from '../constants/constants';
+
+import { setAlert } from './alert';
+
+export const addNotification = (formData) => async (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }
+    try {
+        const res = await axios.post('/api/notificationSetting', formData, config);
+
+        dispatch({
+            type: ADD_NOTIFICATION,
+            payload: res.data
+        });
+        dispatch(setAlert('Update the Notification Setting Successfully', 'success'));
+        
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+          errors.forEach((error) => {
+            dispatch(setAlert(error.msg, 'danger'));
+          });
+        }
+        dispatch({
+            type: NOTIFICATION_ERROR,
+        });
+    }
+    
+};
+
+
+export const getNotification = () => async (dispatch) => {
+    try {
+        const res = await axios('/api/notificationSetting');
+        dispatch({
+            type: GET_NOTIFICATION,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: NOTIFICATION_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        })
+    }
+}

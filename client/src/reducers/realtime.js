@@ -5,23 +5,29 @@ import {
 } from '../constants/constants';
 
 const initialState = {
-    realtime: null,
+    realtimeSetting: [],
     error: {}
 };
 
 export default function (state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case ADD_REALTIME:
-            return {
-                ...state,
-                realtime: payload
-            }
         case GET_REALTIME:
             return {
                 ...state,
-                realtime: payload
-            }
+                realtimeSetting: payload
+            };
+        case ADD_REALTIME:
+            console.log(payload);
+            return {
+                ...state,
+                realtimeSetting: [payload, ...state.realtimeSetting]
+            };
+        case REALTIME_ERROR:
+            return {
+                ...state,
+                error: payload
+            };
         default:
             return state;
     }

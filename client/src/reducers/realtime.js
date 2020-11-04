@@ -6,7 +6,8 @@ import {
 
 const initialState = {
     realtimeSetting: [],
-    error: {}
+    error: {},
+    loading: true
 };
 
 export default function (state = initialState, action) {
@@ -15,18 +16,21 @@ export default function (state = initialState, action) {
         case GET_REALTIME:
             return {
                 ...state,
-                realtimeSetting: payload
+                realtimeSetting: payload,
+                loading: false
             };
         case ADD_REALTIME:
             console.log(payload);
             return {
                 ...state,
-                realtimeSetting: [payload, ...state.realtimeSetting]
+                realtimeSetting: [payload, ...state.realtimeSetting],
+                loading: false
             };
         case REALTIME_ERROR:
             return {
                 ...state,
-                error: payload
+                error: payload,
+                loading: false
             };
         default:
             return state;

@@ -4,17 +4,22 @@ import NotificationSetting from '../Notification Settings/NotificationSetting';
 import Alert from '../Alert'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getNotification} from '../../actions/notification'
-const NotificationSettings = ({getNotification, notification: {notification}}) => { 
+import {getNotification, syncData} from '../../actions/notification'
+const NotificationSettings = ({getNotification, notification: {notification}, syncData}) => { 
     useEffect(() => {
         getNotification();
-    }, [])
+    }, []);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        syncData()
+    }
     return (
         <div className='container'>
             <Alert />
-            <div style={{textAlign:'right'}}>
-                <Button primary>SYNC DATA</Button>
-            </div>
+            <form style={{textAlign:'right'}}>
+                <Button primary onClick={onSubmit}>SYNC DATA</Button>
+            </form>
             {notification.map((item, index) => (
                 <NotificationSetting notification={item} key={index}/>
             ))}
@@ -26,7 +31,8 @@ const NotificationSettings = ({getNotification, notification: {notification}}) =
 
 NotificationSettings.propTypes = {
     getNotification: PropTypes.func.isRequired,
-    notification: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
+    syncData: PropTypes.func.isRequired,
   }
 
 const mapStateToProps = (state) => ({
@@ -34,4 +40,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, {getNotification})(NotificationSettings)
+export default connect(mapStateToProps, {getNotification, syncData})(NotificationSettings)

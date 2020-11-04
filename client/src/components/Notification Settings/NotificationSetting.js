@@ -10,9 +10,10 @@ import position_1 from '../../images/position_1.png';
 import position_2 from '../../images/position_2.jpg';
 import position_3 from '../../images/position_3.jpg';
 import position_4 from '../../images/position_4.jpg';
-import { addNotification, getNotification } from '../../actions/notification'
+import { addNotification, getNotification } from '../../actions/notification';
+import Spinner from '../contents/Spinner'
 
-const NotificationSetting = ({addNotification, notification, getNotification}) => {
+const NotificationSetting = ({addNotification, notification, getNotification, loading}) => {
     useEffect(() => {
         getNotification();
     }, [])
@@ -60,10 +61,10 @@ const NotificationSetting = ({addNotification, notification, getNotification}) =
       [],
     );
 
-    const [formDisplay, setFormDisplay] = useState('bounce');
+    const [formDisplay, setFormDisplay] = useState(notification.notiDisplay);
     const {display} = formDisplay;
 
-    const [formHide, setFormHide] = useState('bounce');
+    const [formHide, setFormHide] = useState(notification.notiHidden);
     const {hidden} = formHide;
 
     const [stateEffect, setStateEffect] = useState(true);
@@ -77,12 +78,32 @@ const NotificationSetting = ({addNotification, notification, getNotification}) =
     const [checkedOrder, setCheckedOrder] = useState(notification.showOrder);
     const handleChangeOrder = useCallback((newChecked) => setCheckedOrder(newChecked), []);
 
+    const [color, setColor] = useState(notification.highlightColor);
+    const onChangeColor = (e) => {
+        setColor([e.target.name]= e.target.value)
+    };
+
+    const [colorText, setColorText] = useState(notification.textColor);
+    const onChangeColorText = (e) => {
+        setColorText([e.target.name]= e.target.value)
+    };
+
+    const [colorDate, setColorDate] = useState(notification.colorDate);
+    const onChangeColorDate = (e) => {
+        setColorDate([e.target.name]= e.target.value)
+    };
+
+    const [borderRadius, setBorderRadius] = useState(notification.borderRadius);
+    const onChangeBorderRadius = (e) => {setBorderRadius([e.target.name]=e.target.value)}
+
+
+
     const onChange= (e) => {
         setFormDisplay({...formDisplay, [e.target.name]: e.target.value});
-    }
+    };
     const onChangeHide = (e) => {
         setFormHide({...formHide, [e.target.name]: e.target.value});
-    }
+    };
 
     const initialState = {
         showOrder: '', 
@@ -103,7 +124,9 @@ const NotificationSetting = ({addNotification, notification, getNotification}) =
         borderRadius: ''
     };
 
-    const [formData, setFormData] = useState(initialState);
+    const notify = notification.position
+
+const [formData, setFormData] = useState(initialState);
     formData.position = positionValue;
     formData.showOrder = JSON.stringify(checkedOrder);
     formData.selectOrder = selectedOrderSelect;
@@ -112,7 +135,11 @@ const NotificationSetting = ({addNotification, notification, getNotification}) =
     formData.showDevices = selected;
     formData.notiDisplay = display;
     formData.notiHidden = hidden;
-    const { numberOfLive, nextTimeDisplay, displaytime, customText, highlightColor, textColor, colorDate, borderRadius } = formData
+    formData.highlightColor = color
+    formData.textColor = colorText
+    formData.colorDate = colorDate
+    formData.borderRadius = borderRadius;
+    const {customText} = formData;
     const onChangeData = (e) => {
         setFormData({...formData, [e.target.name] : e.target.value});
     }
@@ -121,402 +148,410 @@ const NotificationSetting = ({addNotification, notification, getNotification}) =
         addNotification(formData);
     }
 
-    console.log(notification)
+    console.log(formData)
     return (
-        <div className='mb-3'>
-            <form onSubmit={onSubmit}>
-                {/* Show Order */}
+        <>
+            {loading ? (
+                <Spinner />
+                ) : (
                 <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Show Order Notifications</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <Checkbox
-                                checked={checkedOrder}
-                                onChange={handleChangeOrder}
-                            />
-                        </Layout.Section> 
-                    </Layout>
-                </div>
-                {/* Select Order */}
-                <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Select Order</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <div style={{width:'250px'}}>
-                                <Select
-                                    options={optionsSelect}
-                                    onChange={handleSelectOrder}
-                                    value={selectedOrderSelect}
-                                />
-                            </div>
-                        </Layout.Section> 
-                    </Layout>  
-                </div>
-                {/* Custom order */}
-                <div className='mb-3'>
-                    <div className='mb-3'>
-                        <Layout>
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Show Custiom Order</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <div className='input-md'>
-                                    <Select
-                                        options={optionsShow}
-                                        onChange={handleSelectChangeShow}
-                                        value={selectedShow}
-                                    />
-                                </div>
-                            </Layout.Section> 
-                        </Layout>
-                    </div>
-                    {selectedShow === 'Random' ? (
+                    <form onSubmit={onSubmit}>
+                        {/* Show Order */}
                         <div className='mb-3'>
                             <Layout>
                                 <Layout.Section secondary>
-                                    <TextStyle variation='strong'>Number of Live Order to show</TextStyle>
+                                    <TextStyle variation='strong'>Show Order Notifications</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                    <div className='input-sm'>
-                                        <input className='input-form' type='number' name='numberOfLive' defaultValue={notification.numberOfLive} onChange={onChangeData} />
-                                    </div>
-                                </Layout.Section> 
-                            </Layout> 
-                        </div>)
-                        : ''
-                    }
-                </div>
-                {/* Order Status */}
-                <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Order status</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <OptionList
-                            onChange={setSelectedOrder}
-                            options={[
-                            {value: 'Pending', label: 'Pending'},
-                            {value: 'Paid', label: 'Paid'},
-                            {value: 'Refunded', label: 'Refunded'},
-                            ]}
-                            selected={selectedOrder}
-                            allowMultiple>
-                            </OptionList>
-                        </Layout.Section> 
-                    </Layout>
-                </div>
-                {/* Display time */}
-                <div className='mb-3'>
-                    <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Next time display</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <div className='time-display'>
-                                <input className='input-form' type='number' name='nextTimeDisplay' value= {notification.nextTimeDisplay} onChange={onChangeData}/>
-                                <span className='seconds'>seconds</span>
-                            </div>
-                        </Layout.Section> 
-                    </Layout>
-                    </div>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Display time</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <div className='time-display'>
-                                <input className='input-form' type='number' name='displaytime' value= {notification.displaytime} onChange={onChangeData}/>
-                                <span className='seconds'>seconds</span>
-                            </div>
-                        </Layout.Section> 
-                    </Layout>
-                </div>
-                {/* Select Date */}
-                <div className='mb-3'>
-                    <div className="mb-3">
-                        <Layout >
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Select Date Format</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <div className='input-md'>
-                                    <Select
-                                        options={optionsDate}
-                                        onChange={handleSelectChangeDate}
-                                        value={selectedDate}
+                                    <Checkbox
+                                        checked={checkedOrder}
+                                        onChange={handleChangeOrder}
                                     />
-                                </div>
-                            </Layout.Section> 
-                        </Layout>  
-                    </div>
-                    {selectedDate === 'Date time' ? (
-                        <div className="mb-3">
-                            <Layout>
-                                <Layout.Section secondary>
-                                </Layout.Section>
-                                <Layout.Section>
-                                    <TextStyle variation='strong'>Chose date format</TextStyle>
-                                    <div className="input-md">
-                                        <Select
-                                        options={optionTimes}
-                                        onChange={handleOptionTimes}
-                                        value={choose}
-                                        />
-                                    </div>
-                                </Layout.Section>
+                                </Layout.Section> 
                             </Layout>
                         </div>
-                    ) : ''}     
-            
-                </div>
-
-                {/* Show device */}
-                <div className='mb-3'>
-                    <Layout >
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Select show device</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <div style={{width:'250px'}}>
-                                <Select
-                                    options={options}
-                                    onChange={handleSelectChange}
-                                    value={selected}
-                                />
+                        {/* Select Order */}
+                        <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Select Order</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <div style={{width:'250px'}}>
+                                        <Select
+                                            options={optionsSelect}
+                                            onChange={handleSelectOrder}
+                                            value={selectedOrderSelect}
+                                        />
+                                    </div>
+                                </Layout.Section> 
+                            </Layout>  
+                        </div>
+                        {/* Custom order */}
+                        <div className='mb-3'>
+                            <div className='mb-3'>
+                                <Layout>
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Show Custiom Order</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <div className='input-md'>
+                                            <Select
+                                                options={optionsShow}
+                                                onChange={handleSelectChangeShow}
+                                                value={selectedShow}
+                                            />
+                                        </div>
+                                    </Layout.Section> 
+                                </Layout>
                             </div>
-                        </Layout.Section> 
-                    </Layout>  
-                </div>
-                {/* Custom Text */}
-                <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Custom Text</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                                <input className='input-form' type='text' name= 'customText' value= {customText} onChange={onChangeData}/>
-                                <p className='note-text p-0'>
-                                If you want to show the customer's name, lets put "%name" you in the text box. Do the same with the customer's city.
-                                Or instead of show the customer's name you can replace "%name" with "Someone". And "%city" it works with city.
-                                Example: Someone in Ha Noi, Viet Nam purchased
-                                </p>
-                        </Layout.Section> 
-                    </Layout> 
-                </div>
-                {/* Effect */}
-                <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Message display effect</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <select name='display' value={display} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
-                                <optgroup label='Attention Seekers'>
-                                    <option value='bounce'>Bounce</option>
-                                    <option value='flash'>Flash</option>
-                                    <option value='pulse'>Pulse</option>
-                                    <option value='shakeX'>ShakeX</option>
-                                    <option value='bounce out up'>Bounce out up</option>
-                                    <option value='shakeY'>ShakeY</option>
-                                    <option value='swing'>Swing</option>
-                                    <option value='tada'>tada</option>
-                                    <option value='jello'>Jello</option>
-                                    <option value='backInDown'>Back In Down</option>
-                                    <option value='heartBeat'>Bounce out up</option>
-                                    <option value='bounceInLeft'>Bounce in left</option>
-                                </optgroup>
-                            </select> 
-                        </Layout.Section> 
-                    </Layout>
-                </div>
-                <Layout>
-                    <Layout.Section secondary>
-                        <TextStyle variation='strong'>Message hidden effect</TextStyle>
-                    </Layout.Section>
-                    <Layout.Section>
-                        <select name='hidden' value={hidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
-                            <optgroup label='Bouncing Exit'>
-                                <option value='bounceOut'>Bounce Out</option>
-                                <option value='bounceOutDown'>bounceOutDown</option>
-                                <option value='bounceOutLeft'>bounceOutLeft</option>
-                                <option value='bounceOutRight'>bounceOutRight</option>
-                                <option value='bounceOutUp'>bounceOutUp</option>
-                                <option value='fadeOut'>fadeOut</option>
-                                <option value='fadeOutBig'>fadeOutBig</option>
-                                <option value='fadeOutLeftBig'>fadeOutLeftBig</option>
-                                <option value='fadeOutRightBig'>fadeOutRightBig</option>
-                                <option value='fadeOutUpBig'>fadeOutUpBig</option>
-                            </optgroup>
-                        </select> 
-                    </Layout.Section> 
-                </Layout>
-                
-                {/* Position */}
-                <div className='mb-3 mt-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <TextStyle variation='strong'>Position</TextStyle>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <ul className='img-list'>
-                                <li className='img-sm'>
-                                    <img alt='Nothing' className='img' src={position_1}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'bottomLeft'}
-                                        id="bottomLeft"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
+                            {selectedShow === 'Random' ? (
+                                <div className='mb-3'>
+                                    <Layout>
+                                        <Layout.Section secondary>
+                                            <TextStyle variation='strong'>Number of Live Order to show</TextStyle>
+                                        </Layout.Section>
+                                        <Layout.Section>
+                                            <div className='input-sm'>
+                                                <input className='input-form' type='number' name='numberOfLive' defaultValue={notification.numberOfLive} onChange={onChangeData} />
+                                            </div>
+                                        </Layout.Section> 
+                                    </Layout> 
+                                </div>)
+                                : ''
+                            }
+                        </div>
+                        {/* Order Status */}
+                        <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Order status</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <OptionList
+                                    onChange={setSelectedOrder}
+                                    options={[
+                                    {value: 'Pending', label: 'Pending'},
+                                    {value: 'Paid', label: 'Paid'},
+                                    {value: 'Refunded', label: 'Refunded'},
+                                    ]}
+                                    selected={selectedOrder}
+                                    allowMultiple>
+                                    </OptionList>
+                                </Layout.Section> 
+                            </Layout>
+                        </div>
+                        {/* Display time */}
+                        <div className='mb-3'>
+                            <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Next time display</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <div className='time-display'>
+                                        <input className='input-form' type='number' name='nextTimeDisplay' value= {notification.nextTimeDisplay} onChange={onChangeData}/>
+                                        <span className='seconds'>seconds</span>
                                     </div>
-                                </li>
-                                <li className='img-sm'>
-                                    <img alt='Nothing' className='img' src={position_2}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'bottomRight'}
-                                        id="bottomRight"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
+                                </Layout.Section> 
+                            </Layout>
+                            </div>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Display time</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <div className='time-display'>
+                                        <input className='input-form' type='number' name='displaytime' value= {notification.displaytime} onChange={onChangeData}/>
+                                        <span className='seconds'>seconds</span>
                                     </div>
-                                </li>
-                                <li className='img-sm'>
-                                    <img alt='Nothing' className='img' src={position_3}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'topRight'}
-                                        id="topRight"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
-                                    </div>
-                                </li>
-                                <li className='img-sm'>
-                                    <img alt='Nothing' className='img' src={position_4}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'topLeft'}
-                                        id="topLeft"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
-                                    </div>
-                                </li>
-                            </ul>
-                        </Layout.Section> 
-                    </Layout>
-                </div>
+                                </Layout.Section> 
+                            </Layout>
+                        </div>
+                        {/* Select Date */}
+                        <div className='mb-3'>
+                            <div className="mb-3">
+                                <Layout >
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Select Date Format</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <div className='input-md'>
+                                            <Select
+                                                options={optionsDate}
+                                                onChange={handleSelectChangeDate}
+                                                value={selectedDate}
+                                            />
+                                        </div>
+                                    </Layout.Section> 
+                                </Layout>  
+                            </div>
+                            {selectedDate === 'Date time' ? (
+                                <div className="mb-3">
+                                    <Layout>
+                                        <Layout.Section secondary>
+                                        </Layout.Section>
+                                        <Layout.Section>
+                                            <TextStyle variation='strong'>Chose date format</TextStyle>
+                                            <div className="input-md">
+                                                <Select
+                                                options={optionTimes}
+                                                onChange={handleOptionTimes}
+                                                value={choose}
+                                                />
+                                            </div>
+                                        </Layout.Section>
+                                    </Layout>
+                                </div>
+                            ) : ''}     
+                    
+                        </div>
 
-                {/* Color picker */}
-                <div className='mt-3 mb-3'>
-                    <div className='mb-3'>
-                        <Layout>
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Highlight color</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <input className='inputColor' name='highlightColor' value= {highlightColor} onChange={onChangeData} type='color' />
-                            </Layout.Section> 
-                        </Layout>
-                    </div>
-                    <div className='mb-3'>
-                        <Layout>
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Text color</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <input className='inputColor' name='textColor' value={textColor} onChange={onChangeData}  type='color' />
-                            </Layout.Section> 
-                        </Layout>
-                    </div>
-                    <div className='mb-3'>
-                        <Layout>
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Color Date</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <input className='inputColor' name='colorDate' value={colorDate} onChange={onChangeData}  type='color' />
-                            </Layout.Section> 
-                        </Layout>
-                    </div>
-                    <div className='mb-3'>
-                        <Layout>
-                            <Layout.Section secondary>
-                                <TextStyle variation='strong'>Border Radius</TextStyle>
-                            </Layout.Section>
-                            <Layout.Section>
-                                <div className='input-sm'>
-                                        <input className='input-form' type='number' name='borderRadius' value= {borderRadius} onChange={onChangeData} />
-                                </div>
-                            </Layout.Section> 
-                        </Layout>
-                    </div>
-                </div>  
-                {/* Footer */}
-                <div className='mb-3'>
-                    <Layout>
-                        <Layout.Section secondary>
-                            <Button size='medium' primary>
-                                <div style={{display:'flex'}}>
-                                    <Icon source={QuestionMarkMajor} />
-                                    <span style={{padding:'5px 0px 5px 3px'}}>Support</span>
-                                </div>
-                            </Button>
-                        </Layout.Section>
-                        <Layout.Section>
-                            <Button size='large' primary submit={true}>Save</Button>
-                        </Layout.Section> 
-                    </Layout>
-                </div>
-                {/* <Notification effect = {display} hide = {hidden} /> */}
-                <div>
-                    {stateEffect === true ? (              
-                        <div style={{ borderRadius: `${borderRadius}px`, overflow: 'hidden'}} id='show-demo' className= {`animate__animated animate__${hidden} animate__${display}`}>
-                                <div style={{padding: 0}}>
-                                    <div xs='2' style={{display:'flex'}}>
-                                        <div md='4' xs='4' style={{width:'100px'}}>
-                                            <img className='img_demo' alt='nothing' src={logo} />  
-                                        </div>                          
-                                        <div md='8' xs='8' style={{padding: '0 15px'}} >
-                                            <a href='#' onClick={handleChange} className='hide_demo'>
-                                                <i className="fa fa-times"></i>
-                                            </a>
-                                            <h5 style={{color: `${highlightColor}`}}>Omega in Ha Noi, Viet Nam purchased</h5>
-                                            <h2 style={{color: `${textColor}`}}>Lorem ipsum dolor</h2>
-                                            <p style={{color: `${colorDate}`}}>4 hours ago</p>
-                                        </div>                           
+                        {/* Show device */}
+                        <div className='mb-3'>
+                            <Layout >
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Select show device</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <div style={{width:'250px'}}>
+                                        <Select
+                                            options={options}
+                                            onChange={handleSelectChange}
+                                            value={selected}
+                                        />
                                     </div>
-                                </div>
+                                </Layout.Section> 
+                            </Layout>  
+                        </div>
+                        {/* Custom Text */}
+                        <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Custom Text</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                        <input className='input-form' type='text' name= 'customText' value= {customText} onChange={onChangeData}/>
+                                        <p className='note-text p-0'>
+                                        If you want to show the customer's name, lets put "%name" you in the text box. Do the same with the customer's city.
+                                        Or instead of show the customer's name you can replace "%name" with "Someone". And "%city" it works with city.
+                                        Example: Someone in Ha Noi, Viet Nam purchased
+                                        </p>
+                                </Layout.Section> 
+                            </Layout> 
+                        </div>
+                        {/* Effect */}
+                        <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Message display effect</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <select name='display' defaultValue={notification.notiDisplay} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                        <optgroup label='Attention Seekers'>
+                                            <option value='bounce'>Bounce</option>
+                                            <option value='flash'>Flash</option>
+                                            <option value='pulse'>Pulse</option>
+                                            <option value='shakeX'>ShakeX</option>
+                                            <option value='bounce out up'>Bounce out up</option>
+                                            <option value='shakeY'>ShakeY</option>
+                                            <option value='swing'>Swing</option>
+                                            <option value='tada'>tada</option>
+                                            <option value='jello'>Jello</option>
+                                            <option value='backInDown'>Back In Down</option>
+                                            <option value='heartBeat'>Bounce out up</option>
+                                            <option value='bounceInLeft'>Bounce in left</option>
+                                        </optgroup>
+                                    </select> 
+                                </Layout.Section> 
+                            </Layout>
+                        </div>
+                        <Layout>
+                            <Layout.Section secondary>
+                                <TextStyle variation='strong'>Message hidden effect</TextStyle>
+                            </Layout.Section>
+                            <Layout.Section>
+                                <select name='hidden' defaultValue={notification.notiHidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                    <optgroup label='Bouncing Exit'>
+                                        <option value='fadeOutBig'>fadeOutBig</option>
+                                        <option value='bounceOut'>Bounce Out</option>
+                                        <option value='bounceOutDown'>bounceOutDown</option>
+                                        <option value='bounceOutLeft'>bounceOutLeft</option>
+                                        <option value='bounceOutRight'>bounceOutRight</option>
+                                        <option value='bounceOutUp'>bounceOutUp</option>
+                                        <option value='fadeOut'>fadeOut</option>
+                                        <option value='fadeOutLeftBig'>fadeOutLeftBig</option>
+                                        <option value='fadeOutRightBig'>fadeOutRightBig</option>
+                                        <option value='fadeOutUpBig'>fadeOutUpBig</option>
+                                    </optgroup>
+                                </select> 
+                            </Layout.Section> 
+                        </Layout>
+                        
+                        {/* Position */}
+                        <div className='mb-3 mt-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <TextStyle variation='strong'>Position</TextStyle>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <ul className='img-list'>
+                                        <li className='img-sm'>
+                                            <img alt='Nothing' name='position' id="bottomRight" className='img' src={position_1}/>
+                                            <br/>
+                                            <div style={{textAlign:'center'}}>
+                                                
+                                            <RadioButton
+                                                checked={positionValue === 'bottomLeft'}
+                                                id="bottomLeft"
+                                                name="position"
+                                                onChange={handleChangePosition}
+                                            />
+                                            </div>
+                                        </li>
+                                        <li className='img-sm'>
+                                            <img alt='Nothing' className='img' src={position_2}/>
+                                            <br/>
+                                            <div style={{textAlign:'center'}}>
+                                                
+                                            <RadioButton
+                                                checked={positionValue === 'bottomRight'}
+                                                id="bottomRight"
+                                                name="position"
+                                                onChange={handleChangePosition}
+                                            />
+                                            </div>
+                                        </li>
+                                        <li className='img-sm'>
+                                            <img alt='Nothing' className='img' src={position_3}/>
+                                            <br/>
+                                            <div style={{textAlign:'center'}}>
+                                                
+                                            <RadioButton
+                                                checked={positionValue === 'topRight'}
+                                                id="topRight"
+                                                name="position"
+                                                onChange={handleChangePosition}
+                                            />
+                                            </div>
+                                        </li>
+                                        <li className='img-sm'>
+                                            <img alt='Nothing' className='img' src={position_4}/>
+                                            <br/>
+                                            <div style={{textAlign:'center'}}>
+                                                
+                                            <RadioButton
+                                                checked={positionValue === 'topLeft'}
+                                                id="topLeft"
+                                                name="position"
+                                                onChange={handleChangePosition}
+                                            />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </Layout.Section> 
+                            </Layout>
+                        </div>
+
+                        {/* Color picker */}
+                        <div className='mt-3 mb-3'>
+                            <div className='mb-3'>
+                                <Layout>
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Highlight color</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <input className='inputColor' name='color' value= {color} onChange={onChangeColor} type='color' />
+                                        {console.log(color)}
+                                    </Layout.Section> 
+                                </Layout>
+                            </div>
+                            <div className='mb-3'>
+                                <Layout>
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Text color</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <input className='inputColor' name='colorText' value={colorText} onChange={onChangeColorText}  type='color' />
+                                    </Layout.Section> 
+                                </Layout>
+                            </div>
+                            <div className='mb-3'>
+                                <Layout>
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Color Date</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <input className='inputColor' name='colorDate' value={colorDate} onChange={onChangeColorDate}  type='color' />
+                                    </Layout.Section> 
+                                </Layout>
+                            </div>
+                            <div className='mb-3'>
+                                <Layout>
+                                    <Layout.Section secondary>
+                                        <TextStyle variation='strong'>Border Radius</TextStyle>
+                                    </Layout.Section>
+                                    <Layout.Section>
+                                        <div className='input-sm'>
+                                                <input className='input-form' type='number' name='borderRadius' defaultValue= {borderRadius} onChange={onChangeBorderRadius} />
+                                        </div>
+                                    </Layout.Section> 
+                                </Layout>
+                            </div>
                         </div>  
-                    ) : null}
+                        {/* Footer */}
+                        <div className='mb-3'>
+                            <Layout>
+                                <Layout.Section secondary>
+                                    <Button size='medium' primary>
+                                        <div style={{display:'flex'}}>
+                                            <Icon source={QuestionMarkMajor} />
+                                            <span style={{padding:'5px 0px 5px 3px'}}>Support</span>
+                                        </div>
+                                    </Button>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    <Button size='large' primary submit={true}>Save</Button>
+                                </Layout.Section> 
+                            </Layout>
+                        </div>
+                        {/* <Notification effect = {display} hide = {hidden} /> */}
+                        <div>
+                            {stateEffect === true ? (              
+                                <div style={{ borderRadius: `${borderRadius}px`, overflow: 'hidden', bottom: notify === "bottomLeft" ? "4vh" : notify === "topLeft" ? "75vh" :  notify === "bottomRight" ? "4vh" : "75vh" , right: notify === "bottomRight" ? "0" : notify === "topRight" ? "0" : "", animationFillMode: "both, backwards"}} id='show-demo' className= {`animate__animated animate__${hidden} animate__${display} notification`}>
+                                        <div style={{padding: 0}}>
+                                            <div xs='2' style={{display:'flex'}}>
+                                                <div md='4' xs='4' style={{width:'100px'}}>
+                                                    <img className='img_demo' alt='nothing' src={logo} />  
+                                                </div>                          
+                                                <div md='8' xs='8' style={{padding: '0 15px'}} >
+                                                    <a href='#' onClick={handleChange} className='hide_demo'>
+                                                        <i className="fa fa-times"></i>
+                                                    </a>
+                                                    <h5 style={{color: `${color}`}}>Omega in Ha Noi, Viet Nam purchased</h5>
+                                                    <h2 style={{color: `${colorText}`}}>Lorem ipsum dolor</h2>
+                                                    <p style={{color: `${colorDate}`}}>4 hours ago</p>
+                                                </div>                           
+                                            </div>
+                                        </div>
+                                </div>  
+                            ) : null}
+                        </div>
+                    </form>     
                 </div>
-            </form>     
-        </div>
+            )}
+        </>
     )
 }
 
 NotificationSetting.propTypes = {
     getNotification: PropTypes.func.isRequired,
     getNotification: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({
-
+    loading: state.notification.loading
 })
 
 export default connect(mapStateToProps, {addNotification, getNotification})(NotificationSetting)

@@ -2,11 +2,13 @@ import axios from 'axios';
 import {
     ADD_NOTIFICATION,
     GET_NOTIFICATION,
-    NOTIFICATION_ERROR
+    NOTIFICATION_ERROR,
+    SYNC_DATA
 } from '../constants/constants';
 
 import { setAlert } from './alert';
 
+// add and update notification
 export const addNotification = (formData) => async (dispatch) => {
     const config = {
         headers: {
@@ -37,7 +39,7 @@ export const addNotification = (formData) => async (dispatch) => {
     
 };
 
-
+// get notification
 export const getNotification = () => async (dispatch) => {
     try {
         const res = await axios('/api/notificationSetting');
@@ -45,6 +47,19 @@ export const getNotification = () => async (dispatch) => {
             type: GET_NOTIFICATION,
             payload: res.data
         });
+    } catch (err) {
+        dispatch({
+            type: NOTIFICATION_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        })
+    }
+}
+
+// sync data
+export const syncData = () => async (dispatch) => {
+    try {
+        dispatch({type: 'SYNC_DATA'});
+        dispatch(setAlert('SYNC DATA SUCCESS'))
     } catch (err) {
         dispatch({
             type: NOTIFICATION_ERROR,

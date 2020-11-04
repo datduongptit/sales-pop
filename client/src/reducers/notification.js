@@ -1,13 +1,15 @@
 import { 
     ADD_NOTIFICATION,
     GET_NOTIFICATION, 
-    NOTIFICATION_ERROR
+    NOTIFICATION_ERROR,
+    SYNC_DATA
  } from '../constants/constants';
 
 
  const initialState = {
      notification: [],
-     error: {}
+     error: {},
+     loading: true
  }
 
 
@@ -17,18 +19,26 @@ export default function (state = initialState, action) {
         case ADD_NOTIFICATION:
             return {
                 ...state,
-                notification: [payload, ...state.notification]
+                notification: [payload, ...state.notification],
+                loading: false
             }
         case GET_NOTIFICATION:
             return{ 
                 ...state,
-                notification: payload
+                notification: payload,
+                loading: false
             }
         case NOTIFICATION_ERROR: 
-        return {
-            ...state,
-            error: payload
-        }
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
+        case SYNC_DATA:
+            return {
+                ...state,
+                notification: payload
+            }
         default:
             return state
     }

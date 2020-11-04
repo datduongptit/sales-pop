@@ -6,9 +6,9 @@ import {getProducts, getProduct, updateProduct, publishOrders} from '../../actio
 import Moment from 'react-moment';
 import EditManualSales from './EditManualSales';
 import DeleteButton from './DeleteButton';
-import axios from 'axios';
+import Spinner from '../contents/Spinner'
 
-const ProductItems = ({getProducts, getProduct, manualSale: {products}, updateProduct, publishOrders}) => {
+const ProductItems = ({getProducts, getProduct, manualSale: {products, loading}, updateProduct, publishOrders}) => {
 
     const rows = [];
     products.map((product, index) => {
@@ -35,6 +35,10 @@ const ProductItems = ({getProducts, getProduct, manualSale: {products}, updatePr
     })
 
     return (
+        <>
+        {loading ? (
+            <Spinner /> 
+            ) : (
             <Card>
                 <DataTable
                 columnContentTypes={[
@@ -58,6 +62,8 @@ const ProductItems = ({getProducts, getProduct, manualSale: {products}, updatePr
                 rows={rows}
                 />
             </Card>
+            )}
+        </>
     )
 }
 

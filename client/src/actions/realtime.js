@@ -1,10 +1,10 @@
+import axios from 'axios';
 import {
     ADD_REALTIME, 
     GET_REALTIME,
     REALTIME_ERROR
 } from '../constants/constants';
 import { setAlert } from './alert';
-import axios from 'axios';
 
 export const addRealtimeSetting = (formData) => async (dispatch) => {
     const config = {

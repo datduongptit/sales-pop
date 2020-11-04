@@ -110,7 +110,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                                     name='checked'
                                 />
                                 <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
-                                    <i style={{color: '#fff'}} className='fa fa-users'></i>
+                                    <i style={{color: colorText}} className='fa fa-users'></i>
                                     <span style={{color:`${colorText}`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
                                     </span>
                                 </div>
@@ -136,7 +136,11 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                                 id='backgroundColor'
                                 name='checked'
                             />
-                            <div className='gradient' style={{backgroundColor: color}}><span style={{color:`${colorText}`, fontWeight:600, marginLeft: 50, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText} </span></div>
+                            <div className='gradient' style={{backgroundColor: color}}>
+                                <i style={{color: colorText}} className='fa fa-users'></i>
+                                <span style={{color:`${colorText}`, fontWeight:600, alignItems: 'center', fontSize: 16}}> {customText} 
+                                </span>
+                            </div>
                         </Layout.Section>
                         <div className="mt-3">
                             <span style={{fontWeight:600, padding: 15}}>Background Color</span>

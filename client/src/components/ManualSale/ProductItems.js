@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button, Card, DataTable} from '@shopify/polaris';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';

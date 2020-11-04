@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
-import {Button, Modal, Layout, Checkbox, TextStyle, Select} from '@shopify/polaris';
+import {Button, Modal, Layout, TextStyle, Select} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {addProduct, getProduct} from '../../actions/manualSale';
 
-const AddModal = ({addProduct, manualSale, getProduct}) => {
+const AddModal = ({addProduct}) => {
 
     const [active, setActive] = useState(false);
     const handleChange = useCallback(() => setActive(!active), [active]);
@@ -19,9 +19,6 @@ const AddModal = ({addProduct, manualSale, getProduct}) => {
     ]
 
     const [selected, setSelected] = useState('Select Customer');
-    const customers = [
-      {label: '', value: ''},
-    ]
 
     const [checked, setChecked] = useState(true);
     // const handleChangeCheck = useCallback((newChecked) => setChecked(newChecked), []);

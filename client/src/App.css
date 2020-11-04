@@ -82,6 +82,15 @@
   border-radius: 15px;
 }
 
+.option ul li ul {
+  display: inline-flex;
+}
+
+.option ul li ul li label {
+  padding-left: 0;
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 1024px) {
   .img-sm {
     width: 20%;
@@ -138,8 +147,19 @@
 @media only screen and (max-width: 375px) {
 }
 
+/* input[type='radio'] {
+  border: 30px;
+  width: 500%;
+  height: 5rem;
+  -ms-transform: scale(1.5); 
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+} */
+
 .img {
   width: 100%;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .input-md {

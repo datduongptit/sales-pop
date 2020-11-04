@@ -58,7 +58,7 @@ export const getNotification = () => async (dispatch) => {
 // sync data
 export const syncData = () => async (dispatch) => {
     try {
-        dispatch({type: 'SYNC_DATA'});
+        dispatch({type: SYNC_DATA});
         dispatch(setAlert('SYNC DATA SUCCESS'))
     } catch (err) {
         dispatch({

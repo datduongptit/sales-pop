@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {Button, Modal} from '@shopify/polaris';
 import {deleteProduct} from '../../actions/manualSale';
 import {connect} from 'react-redux';

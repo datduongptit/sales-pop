@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {TextStyle, Layout, RadioButton, Select, Button, Icon, Form} from '@shopify/polaris';
+import {TextStyle, Layout, RadioButton, Select, Button, Icon} from '@shopify/polaris';
 import {
     QuestionMarkMajor
   } from '@shopify/polaris-icons';
@@ -204,60 +204,66 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                         <TextStyle variation='strong'>Position</TextStyle>
                     </Layout.Section>
                     <Layout.Section>
-                            <ul className='img-list'>
-                                <li className='img-sm'>
-                                    <img alt='Nothing' className='img' src={position_1}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'bottomLeft'}
-                                        id="bottomLeft"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
-                                    </div>
-                                </li>
-                                <li className='img-sm'>
+                        <ul className='img-list'>
+                            <li className='img-sm'>
+                                <label htmlFor="bottomLeft">
+                                    <img alt='Nothing'  className='img' src={position_1}/>
+                                </label>
+                                <br/>
+                                <div style={{textAlign:'center'}}>                                               
+                                <RadioButton
+                                    checked={positionValue === 'bottomLeft'}
+                                    id="bottomLeft"
+                                    name="position"
+                                    onChange={handleChangePosition}
+                                />
+                                </div>
+                            </li>
+                            <li className='img-sm'>
+                                <label htmlFor="bottomRight">
                                     <img alt='Nothing' className='img' src={position_2}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'bottomRight'}
-                                        id="bottomRight"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
-                                    </div>
-                                </li>
-                                <li className='img-sm'>
+                                </label>
+                                <br/>
+                                <div style={{textAlign:'center'}}>
+                                    
+                                <RadioButton
+                                    checked={positionValue === 'bottomRight'}
+                                    id="bottomRight"
+                                    name="position"
+                                    onChange={handleChangePosition}
+                                />
+                                </div>
+                            </li>
+                            <li className='img-sm'>
+                                <label htmlFor="topRight">
                                     <img alt='Nothing' className='img' src={position_3}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
-                                    <RadioButton
-                                        checked={positionValue === 'topRight'}
-                                        id="topRight"
-                                        name="position"
-                                        onChange={handleChangePosition}
-                                    />
-                                    </div>
-                                </li>
-                                <li className='img-sm'>
+                                </label>
+                                <br/>
+                                <div style={{textAlign:'center'}}>
+                                    
+                                <RadioButton
+                                    checked={positionValue === 'topRight'}
+                                    id="topRight"
+                                    name="position"
+                                    onChange={handleChangePosition}
+                                />
+                                </div>
+                            </li>
+                            <li className='img-sm'>
+                                <label htmlFor="topLeft">
                                     <img alt='Nothing' className='img' src={position_4}/>
-                                    <br/>
-                                    <div style={{textAlign:'center'}}>
-                                        
+                                </label>
+                                <br/>
+                                <div style={{textAlign:'center'}}>
                                     <RadioButton
                                         checked={positionValue === 'topLeft'}
                                         id="topLeft"
                                         name="position"
                                         onChange={handleChangePosition}
                                     />
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </li>
+                        </ul>
                     </Layout.Section> 
                 </Layout>
             </div>

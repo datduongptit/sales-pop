@@ -7,7 +7,7 @@ import { getRealtimeSetting } from '../../actions/realtime'
 const RealtimeSettings = ({getRealtimeSetting,realtime:{realtimeSetting}}) => {
     useEffect(() => {
         getRealtimeSetting()
-    }, [])
+    }, [getRealtimeSetting])
     return (
         <div className='container'>
             <Alert />

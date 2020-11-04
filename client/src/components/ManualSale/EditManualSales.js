@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types';
-import {Button, Modal, Layout, Checkbox, TextStyle, Select} from '@shopify/polaris';
+import {Button, Modal, Layout, TextStyle, Select} from '@shopify/polaris';
 import {updateProduct, getProducts} from '../../actions/manualSale';
 import {connect} from 'react-redux';
 

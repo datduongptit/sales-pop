@@ -16,7 +16,7 @@ import Spinner from '../contents/Spinner'
 const NotificationSetting = ({addNotification, notification, getNotification, loading}) => {
     useEffect(() => {
         getNotification();
-    }, [])
+    }, [getNotification])
 
     const options = [
         {label: 'Desktop device', value: 'Desktop device'},
@@ -228,6 +228,8 @@ const [formData, setFormData] = useState(initialState);
                                     <TextStyle variation='strong'>Order status</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
+                                    <div className='option'>
+
                                     <OptionList
                                     onChange={setSelectedOrder}
                                     options={[
@@ -238,6 +240,7 @@ const [formData, setFormData] = useState(initialState);
                                     selected={selectedOrder}
                                     allowMultiple>
                                     </OptionList>
+                                    </div>
                                 </Layout.Section> 
                             </Layout>
                         </div>
@@ -397,7 +400,9 @@ const [formData, setFormData] = useState(initialState);
                                 <Layout.Section>
                                     <ul className='img-list'>
                                         <li className='img-sm'>
-                                            <img alt='Nothing' name='position' id="bottomRight" className='img' src={position_1}/>
+                                            <label htmlFor="bottomLeft">
+                                                <img alt='Nothing'  className='img' src={position_1}/>
+                                            </label>
                                             <br/>
                                             <div style={{textAlign:'center'}}>
                                                 
@@ -410,7 +415,9 @@ const [formData, setFormData] = useState(initialState);
                                             </div>
                                         </li>
                                         <li className='img-sm'>
-                                            <img alt='Nothing' className='img' src={position_2}/>
+                                            <label htmlFor="bottomRight">
+                                                <img alt='Nothing' className='img' src={position_2}/>
+                                            </label>
                                             <br/>
                                             <div style={{textAlign:'center'}}>
                                                 
@@ -423,7 +430,9 @@ const [formData, setFormData] = useState(initialState);
                                             </div>
                                         </li>
                                         <li className='img-sm'>
-                                            <img alt='Nothing' className='img' src={position_3}/>
+                                            <label htmlFor="topRight">
+                                                <img alt='Nothing' className='img' src={position_3}/>
+                                            </label>
                                             <br/>
                                             <div style={{textAlign:'center'}}>
                                                 
@@ -436,7 +445,9 @@ const [formData, setFormData] = useState(initialState);
                                             </div>
                                         </li>
                                         <li className='img-sm'>
-                                            <img alt='Nothing' className='img' src={position_4}/>
+                                            <label htmlFor="topLeft">
+                                                <img alt='Nothing' className='img' src={position_4}/>
+                                            </label>
                                             <br/>
                                             <div style={{textAlign:'center'}}>
                                                 
@@ -500,7 +511,7 @@ const [formData, setFormData] = useState(initialState);
                             </div>
                         </div>  
                         {/* Footer */}
-                        <div className='mb-3'>
+                        <div className='mb-3 mt-3'>
                             <Layout>
                                 <Layout.Section secondary>
                                     <Button size='medium' primary>
@@ -545,7 +556,6 @@ const [formData, setFormData] = useState(initialState);
 }
 
 NotificationSetting.propTypes = {
-    getNotification: PropTypes.func.isRequired,
     getNotification: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 }

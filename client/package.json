@@ -1,7 +1,6 @@
 {
   "name": "salespop",
   "version": "0.1.0",
-  "homepage": "https://tdatlocal.omegatheme.com/sales-pop/client/build/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",

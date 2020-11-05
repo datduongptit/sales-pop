@@ -118,12 +118,12 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                                 <div className="mt-3 mb-3" style={{display:'flex'}}>
                                     <div style={{paddingRight: '15px'}}>
                                         <span style={{fontWeight:600}}>Background left:  </span>
-                                        <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
+                                        <img alt="Nothing" style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input type='color' name='backgroundLeft' defaultValue={colorLeft} className='color' onChange={onChangeColorLeft} />
                                     </div>
                                     <div>
                                         <span style={{fontWeight:600}}>Background right: </span>
-                                        <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
+                                        <img alt="Nothing" style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input type='color' name='backgroundRight' defaultValue={colorRight} className='color' onChange={onChangeColorRight} />
                                     </div>
                                         
@@ -148,7 +148,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                         </Layout.Section>
                         <div className="mt-3">
                             <span style={{fontWeight:600}}>Background Color: </span>
-                            <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
+                            <img alt="Nothing" style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                             <input type='color' name='backgroundColor' defaultValue={color} className='color' onChange={onChangeColor} />
                         </div>
                     </Layout.Section> 

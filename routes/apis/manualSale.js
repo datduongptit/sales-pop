@@ -6,9 +6,9 @@ const ManualSale = require('../../models/ManualSale');
 
 // create manual sales
 router.post('/', [
-    // check('firstName', 'Firstname is required').not().isEmpty(),
-    // check('lastName', 'Lastname is required').not().isEmpty(),
-    // check('city', 'City is required').not().isEmpty(),
+    check('firstName', 'Firstname is required').not().isEmpty(),
+    check('lastName', 'Lastname is required').not().isEmpty(),
+    check('city', 'City is required').not().isEmpty(),
     // check('publishOrder', 'PublishOrder is required').not().isEmpty(),
     check('product', 'Product is required').not().isEmpty()
 ], async (req, res) => {

@@ -99,6 +99,10 @@
   zoom: 1.2;
 }
 
+.Polaris-Scrollable--verticalHasScrolling {
+  margin-left: 20px;
+}
+
 @media only screen and (max-width: 1024px) {
   .img-sm {
     width: 20%;

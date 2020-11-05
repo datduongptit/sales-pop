@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Button, Modal, Layout, TextStyle, Select} from '@shopify/polaris';
+import { Modal, Layout, TextStyle, Select} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {addProduct, getProduct} from '../../actions/manualSale';
@@ -54,7 +54,7 @@ const AddModal = ({addProduct}) => {
       handleChange();
     }
 
-    const activator = <Button onClick={handleChange}>Add new manual sale</Button>;
+    const activator = <button className='btn-add' onClick={handleChange}>Add new manual sale</button>;
     return (
           <div className='mb-3'>
             <Modal

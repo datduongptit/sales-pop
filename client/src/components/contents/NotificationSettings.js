@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import {Button} from '@shopify/polaris';
 import NotificationSetting from '../Notification Settings/NotificationSetting';
 import Alert from '../Alert'
 import {connect} from 'react-redux';

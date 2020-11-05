@@ -1,11 +1,8 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import {TextStyle, Layout, RadioButton, Select, OptionList, Checkbox, Icon, Button} from '@shopify/polaris';
+import {TextStyle, Layout, RadioButton, Select, OptionList, Checkbox, Button} from '@shopify/polaris';
 import logo from '../../images/logo192.png';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-    QuestionMarkMajor
-  } from '@shopify/polaris-icons';
 import position_1 from '../../images/position_1.png';
 import position_2 from '../../images/position_2.jpg';
 import position_3 from '../../images/position_3.jpg';
@@ -67,7 +64,7 @@ const NotificationSetting = ({addNotification, notification, getNotification, lo
     const [formHide, setFormHide] = useState(notification.notiHidden);
     const {hidden} = formHide;
 
-    const [stateEffect, setStateEffect] = useState(true);
+    const [stateEffect, setStateEffect] = useState(false);
     const handleChange = useCallback(() => setStateEffect(!stateEffect), [stateEffect]);
 
     const [selected, setSelected] = useState('Live Order');
@@ -472,13 +469,14 @@ const [formData, setFormData] = useState(initialState);
                         </div>
 
                         {/* Color picker */}
-                        <div className='mt-3 mb-3'>
-                            <div className='mb-3'>
+                        <div className='mt-5 mb-3'>
+                            <div className='mt-3 mb-3'>
                                 <Layout>
                                     <Layout.Section secondary>
                                         <TextStyle variation='strong'>Highlight color</TextStyle>
                                     </Layout.Section>
                                     <Layout.Section>
+                                        <img alt='nothing' style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input className='inputColor' name='color' value= {color} onChange={onChangeColor} type='color' />
                                         {console.log(color)}
                                     </Layout.Section> 
@@ -490,6 +488,7 @@ const [formData, setFormData] = useState(initialState);
                                         <TextStyle variation='strong'>Text color</TextStyle>
                                     </Layout.Section>
                                     <Layout.Section>
+                                        <img alt='nothing' style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />    
                                         <input className='inputColor' name='colorText' value={colorText} onChange={onChangeColorText}  type='color' />
                                     </Layout.Section> 
                                 </Layout>
@@ -500,6 +499,7 @@ const [formData, setFormData] = useState(initialState);
                                         <TextStyle variation='strong'>Color Date</TextStyle>
                                     </Layout.Section>
                                     <Layout.Section>
+                                        <img alt='nothing' style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input className='inputColor' name='colorDate' value={colorDate} onChange={onChangeColorDate}  type='color' />
                                     </Layout.Section> 
                                 </Layout>

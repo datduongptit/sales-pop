@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import {Button, Modal} from '@shopify/polaris';
+import { Modal } from '@shopify/polaris';
 import {deleteProduct} from '../../actions/manualSale';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'

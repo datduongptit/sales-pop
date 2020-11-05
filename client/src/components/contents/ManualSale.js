@@ -4,7 +4,7 @@ import AddNewSale from '../ManualSale/AddNewSale'
 const ManualSale = () => {
     return (
         <div>
-            <AddNewSale />
+            <AddNewSale />       
         </div>
     )
 }

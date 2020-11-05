@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button, Card, DataTable} from '@shopify/polaris';
+import { Card, DataTable} from '@shopify/polaris';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {getProducts, getProduct, updateProduct, publishOrders} from '../../actions/manualSale';
 import Moment from 'react-moment';
 import EditManualSales from './EditManualSales';
 import DeleteButton from './DeleteButton';
-import Spinner from '../contents/Spinner'
+import Spinner from '../contents/Spinner';
 
 const ProductItems = ({getProducts, getProduct, manualSale: {products, loading}, publishOrders}) => {
 
@@ -21,7 +21,7 @@ const ProductItems = ({getProducts, getProduct, manualSale: {products, loading},
         0,
         <div style={{display:'flex', padding: 0}}> 
             <div>
-                <div style={{padding: '0 5px 5px 0'}}><button className= {product.publishOrder === true ? 'btn btn-success' : 'btn btn-edit'} onClick={async () => {await publishOrders(product._id, {publishOrder: !product.publishOrder}); getProducts()}} >{product.publishOrder === true ? (<span>Publish</span>) : (<span style={{fontSize: '12px'}}>Unpublish</span>)}</button></div> 
+                <div style={{padding: '0 5px 5px 0'}}><button className= {product.publishOrder === true ? 'btn btn-success' : 'btn btn-edit'} onClick={async () => {await publishOrders(product._id, {publishOrder: !product.publishOrder}); getProducts()}} >{product.publishOrder === true ? (<span style={{fontSize: '12px'}}>Unpublish</span>) : (<span>Publish</span>)}</button></div> 
                 <div><EditManualSales products={product} /><span onClick={() => getProduct(product._id)}></span></div>
             </div>
             <div>
@@ -59,7 +59,8 @@ const ProductItems = ({getProducts, getProduct, manualSale: {products, loading},
                 ]}
                 rows={rows}
                 />
-            </Card>
+                
+            </Card>           
             )}
         </>
     )

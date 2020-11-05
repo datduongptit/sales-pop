@@ -1,8 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {TextStyle, Layout, RadioButton, Select, Button, Icon} from '@shopify/polaris';
-import {
-    QuestionMarkMajor
-  } from '@shopify/polaris-icons';
+import {TextStyle, Layout, RadioButton, Select, Button} from '@shopify/polaris';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {addRealtimeSetting, getRealtimeSetting} from '../../actions/realtime';
@@ -104,25 +101,29 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                         <Layout.Section secondary>
                             <TextStyle>Background Gradient:</TextStyle>
                                 <Layout.Section>
-                                    <RadioButton
-                                        checked={checked === 'gradient'}
-                                        onChange={handleChange}
-                                        id='gradient'
-                                        name='checked'
-                                    />
-                                    <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
-                                        <i style={{color: '#ffff'}} className='fa fa-users'></i>
-                                        <span style={{color:`#fff`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
-                                        </span>
+                                    <div style={{display:'flex'}}>
+                                        <RadioButton
+                                            checked={checked === 'gradient'}
+                                            onChange={handleChange}
+                                            id='gradient'
+                                            name='checked'
+                                        />
+                                        <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
+                                            <i style={{color: '#ffff'}} className='fa fa-users'></i>
+                                            <span style={{color:`#fff`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
+                                            </span>
+                                        </div>
                                     </div>
                                 </Layout.Section>
                                 <div className="mt-3 mb-3" style={{display:'flex'}}>
                                     <div style={{paddingRight: '15px'}}>
-                                        <span style={{fontWeight:600}}>Background left </span>
+                                        <span style={{fontWeight:600}}>Background left:  </span>
+                                        <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input type='color' name='backgroundLeft' defaultValue={colorLeft} className='color' onChange={onChangeColorLeft} />
                                     </div>
                                     <div>
-                                        <span style={{fontWeight:600}}>Background right </span>
+                                        <span style={{fontWeight:600}}>Background right: </span>
+                                        <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input type='color' name='backgroundRight' defaultValue={colorRight} className='color' onChange={onChangeColorRight} />
                                     </div>
                                         
@@ -131,20 +132,23 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                         <Layout.Section secondary>
                         <TextStyle>Background Color:</TextStyle>
                         <Layout.Section>
-                            <RadioButton
-                                checked={checked === 'backgroundColor'}
-                                onChange={handleChange}
-                                id='backgroundColor'
-                                name='checked'
-                            />
-                            <div className='gradient' style={{backgroundColor: color}}>
-                                <i style={{color: colorText}} className='fa fa-users'></i>
-                                <span style={{color:`${colorText}`, fontWeight:600, alignItems: 'center', fontSize: 16}}> {customText} 
-                                </span>
+                            <div style={{display:'flex'}}>
+                                <RadioButton
+                                    checked={checked === 'backgroundColor'}
+                                    onChange={handleChange}
+                                    id='backgroundColor'
+                                    name='checked'
+                                />
+                                <div className='gradient' style={{backgroundColor: color}}>
+                                    <i style={{color: colorText}} className='fa fa-users'></i>
+                                    <span style={{color:`${colorText}`, fontWeight:600, alignItems: 'center', fontSize: 16}}> {customText} 
+                                    </span>
+                                </div>
                             </div>
                         </Layout.Section>
                         <div className="mt-3">
-                            <span style={{fontWeight:600, padding: 15}}>Background Color</span>
+                            <span style={{fontWeight:600}}>Background Color: </span>
+                            <img style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                             <input type='color' name='backgroundColor' defaultValue={color} className='color' onChange={onChangeColor} />
                         </div>
                     </Layout.Section> 

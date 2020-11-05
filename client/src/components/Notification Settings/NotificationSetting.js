@@ -157,7 +157,7 @@ const [formData, setFormData] = useState(initialState);
             {loading ? (
                 <Spinner />
                 ) : (
-                <div className='mb-3'>
+                <div className='mt-3 mb-3'>
                     <div style={{textAlign:'right'}}>
                         <Button primary onClick={() => syncData()}>SYNC DATA</Button>
                     </div>

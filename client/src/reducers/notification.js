@@ -7,7 +7,7 @@ import {
 
 
  const initialState = {
-     notification: [],
+     notification: null,
      error: {},
      loading: true
  }

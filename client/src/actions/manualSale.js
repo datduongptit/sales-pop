@@ -88,7 +88,7 @@ export const getProduct = (id) => async (dispatch) => {
       type: GET_PRODUCT,
       payload: res.data,
     })
-    dispatch(setAlert('Get the product success', 'success'))
+    dispatch(setAlert('Reset the statistic successful', 'success'))
   } catch (err) {
     dispatch({
       type: PRODUCT_ERROR,

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 const DeleteButton = ({id, deleteProduct}) => {
     const [active, setActive] = useState(false);
     const onChange = useCallback(() => setActive(!active), [active]);
-    const activator = <Button onClick={onChange}><span style={{color: 'red', paddingRight: '4px'}}><i className="fa fa-times"></i></span></Button>
+    const activator = <button className="btn btn-danger" onClick={onChange}><span >Delete</span></button>
     return (
         <div>
             <Modal

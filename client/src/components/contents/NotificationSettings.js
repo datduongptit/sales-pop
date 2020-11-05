@@ -5,22 +5,24 @@ import Alert from '../Alert'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getNotification} from '../../actions/notification'
-const NotificationSettings = ({getNotification, notification: {notification}}) => { 
+import Spinner from './Spinner'
+const NotificationSettings = ({getNotification, notification: {notification, loading}}) => { 
     useEffect(() => {
         getNotification();
     }, [getNotification]);
 
     return (
-        <div className='container'>
-            <Alert />
-            <div style={{textAlign:'right'}}>
-                <Button primary>SYNC DATA</Button>
-            </div>
-            {notification.map((item, index) => (
-                <NotificationSetting notification={item} key={index}/>
-            ))}
+        <>
+            {loading && notification === null ? ( <Spinner /> ) : (
+                <div className='container'>
+                    <Alert />
+                    {notification.map((item, index) => (
+                        <NotificationSetting notification={item} key={index}/>
+                    ))}
 
-        </div>
+                </div>
+            )}
+        </>
     )
 }
 

@@ -47,7 +47,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
       getProducts();
       handleChange();
     }
-    const activator = <Button onClick={handleChange}><i className="fa fa-edit"></i></Button>;
+    const activator = <button className="btn btn-dark" onClick={handleChange}><span>Edit</span></button>;
   return (
     <>
           <div className='mb-3'>

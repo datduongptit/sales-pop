@@ -8,27 +8,25 @@ import EditManualSales from './EditManualSales';
 import DeleteButton from './DeleteButton';
 import Spinner from '../contents/Spinner'
 
-const ProductItems = ({getProducts, getProduct, manualSale: {products, loading}, updateProduct, publishOrders}) => {
+const ProductItems = ({getProducts, getProduct, manualSale: {products, loading}, publishOrders}) => {
 
     const rows = [];
-    products.map((product, index) => {
+    products.map((product) => {
     return rows.push([
         product.lastName,
         product.city,
         product.product,
-        <Moment format='MM/DD/YYYY  h:mm a'>{product.order}</Moment>,
+        <Moment format='MM/DD/YYYY  h:mm A'>{product.order}</Moment>,
         0,
         0,
         <div style={{display:'flex', padding: 0}}> 
             <div>
-                {console.log(product.publishOrder)}
-                <div style={{padding: '0 5px 5px 0'}}><Button onClick={async () => {await publishOrders(product._id, {publishOrder: !product.publishOrder}); getProducts()}} ><span style={{color: `${product.publishOrder === true ? 'green' : ''}`}}><i className="fa fa-check"></i></span></Button></div> 
-                {/* <div style={{padding: '0 5px 5px 0'}}><Button onClick={ () => { publishOrders(product._id, {publishOrder: !product.publishOrder})}} ><span style={{color: `${product.publishOrder === true ? 'green' : ''}`}}><i className="fa fa-check"></i></span></Button></div>  */}
-                <EditManualSales products={product} /><span onClick={() => getProduct(product._id)}></span>
+                <div style={{padding: '0 5px 5px 0'}}><button className= {product.publishOrder === true ? 'btn btn-success' : 'btn btn-edit'} onClick={async () => {await publishOrders(product._id, {publishOrder: !product.publishOrder}); getProducts()}} >{product.publishOrder === true ? (<span>Publish</span>) : (<span style={{fontSize: '12px'}}>Unpublish</span>)}</button></div> 
+                <div><EditManualSales products={product} /><span onClick={() => getProduct(product._id)}></span></div>
             </div>
             <div>
                 <div style={{padding: '0 5px 5px 0'}}><DeleteButton id={product._id} /></div>
-                <Button onClick={() => getProducts()}><span style={{color: 'blue'}}><i className="fa fa-retweet"></i></span></Button> 
+                <button className="btn btn-primary" onClick={() => getProduct(product._id)}><span>Reset</span></button> 
             </div> 
         </div>
     ])

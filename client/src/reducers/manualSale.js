@@ -33,14 +33,13 @@ export default function (state = initialState, action) {
         case ADD_PRODUCT:
             return {
                 ...state, 
-                products: [payload, ...state.products].error,
+                products: [payload, ...state.products],
                 loading: false
             };
         case EDIT_PRODUCT:
         case PUBLISH_PRODUCT:
             return {
                 ...state, 
-                // product: [payload, ...state.product]
                 products: state.products.filter((product) => product._id !== payload),
                 loading: false
             };

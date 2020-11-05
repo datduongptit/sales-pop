@@ -3,18 +3,24 @@ import LayoutPopup from '../RealtimeSettings/LayoutPopup';
 import Alert from '../Alert'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { getRealtimeSetting } from '../../actions/realtime'
-const RealtimeSettings = ({getRealtimeSetting,realtime:{realtimeSetting}}) => {
+import { getRealtimeSetting } from '../../actions/realtime';
+import Spinner from './Spinner';
+
+const RealtimeSettings = ({getRealtimeSetting,realtime:{realtimeSetting, loading}}) => {
     useEffect(() => {
         getRealtimeSetting()
-    }, [getRealtimeSetting])
+    }, [getRealtimeSetting, loading])
     return (
-        <div className='container'>
-            <Alert />
-            {realtimeSetting.map((item, index) => (
-                <LayoutPopup realtimeSetting={item}  key={index}/>         
-            ))}
-        </div>
+        <>
+            {loading && realtimeSetting === null ? (<Spinner />) : (
+                <div className='container'>
+                    <Alert />
+                    {realtimeSetting.map((item, index) => (
+                        <LayoutPopup realtimeSetting={item}  key={index}/>         
+                    ))}
+                </div>
+            )}
+        </>
     )
 }
 

@@ -58,8 +58,9 @@ export const getNotification = () => async (dispatch) => {
 // sync data
 export const syncData = () => async (dispatch) => {
     try {
-        dispatch({type: SYNC_DATA});
-        dispatch(setAlert('SYNC DATA SUCCESS'))
+        const res = await axios.get('/api/notificationSetting')
+        dispatch({type: SYNC_DATA, payload: res.data});
+        dispatch(setAlert('SYNC DATA SUCCESS', 'success'));
     } catch (err) {
         dispatch({
             type: NOTIFICATION_ERROR,

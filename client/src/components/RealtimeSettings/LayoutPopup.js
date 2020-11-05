@@ -91,7 +91,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                         <TextStyle variation='strong'>Show Order Notifications</TextStyle>
                     </Layout.Section>
                     <Layout.Section>
-                        <input type='checkbox' name='orderChecked' value={realtimeSetting.showProduct} defaultChecked={orderChecked} onChange={() => setOrderChecked(!orderChecked)} />
+                        <input style={{zoom: 1.4}} type='checkbox' name='orderChecked' value={realtimeSetting.showProduct} defaultChecked={orderChecked} onChange={() => setOrderChecked(!orderChecked)} />
                     </Layout.Section> 
                 </Layout>
             </div>
@@ -100,34 +100,35 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                     <Layout.Section secondary>
                         <TextStyle variation='strong'>Layout Popup</TextStyle>
                     </Layout.Section>
-                    <Layout.Section oneThird>
-                        <TextStyle>Background Gradient:</TextStyle>
-                            <Layout.Section>
-                                <RadioButton
-                                    checked={checked === 'gradient'}
-                                    onChange={handleChange}
-                                    id='gradient'
-                                    name='checked'
-                                />
-                                <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
-                                    <i style={{color: colorText}} className='fa fa-users'></i>
-                                    <span style={{color:`${colorText}`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
-                                    </span>
+                    <Layout.Section>
+                        <Layout.Section secondary>
+                            <TextStyle>Background Gradient:</TextStyle>
+                                <Layout.Section>
+                                    <RadioButton
+                                        checked={checked === 'gradient'}
+                                        onChange={handleChange}
+                                        id='gradient'
+                                        name='checked'
+                                    />
+                                    <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
+                                        <i style={{color: '#ffff'}} className='fa fa-users'></i>
+                                        <span style={{color:`#fff`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
+                                        </span>
+                                    </div>
+                                </Layout.Section>
+                                <div className="mt-3 mb-3" style={{display:'flex'}}>
+                                    <div style={{paddingRight: '15px'}}>
+                                        <span style={{fontWeight:600}}>Background left </span>
+                                        <input type='color' name='backgroundLeft' defaultValue={colorLeft} className='color' onChange={onChangeColorLeft} />
+                                    </div>
+                                    <div>
+                                        <span style={{fontWeight:600}}>Background right </span>
+                                        <input type='color' name='backgroundRight' defaultValue={colorRight} className='color' onChange={onChangeColorRight} />
+                                    </div>
+                                        
                                 </div>
-                            </Layout.Section>
-                            <div className="mt-3 mb-3" style={{display:'flex'}}>
-                                <div style={{paddingRight: '15px'}}>
-                                    <span style={{fontWeight:600}}>Background left </span>
-                                    <input type='color' name='backgroundLeft' defaultValue={colorLeft} className='color' onChange={onChangeColorLeft} />
-                                </div>
-                                <div>
-                                    <span style={{fontWeight:600}}>Background right </span>
-                                    <input type='color' name='backgroundRight' defaultValue={colorRight} className='color' onChange={onChangeColorRight} />
-                                </div>
-                                    
-                            </div>
-                    </Layout.Section> 
-                    <Layout.Section oneThird>
+                        </Layout.Section> 
+                        <Layout.Section secondary>
                         <TextStyle>Background Color:</TextStyle>
                         <Layout.Section>
                             <RadioButton
@@ -147,6 +148,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                             <input type='color' name='backgroundColor' defaultValue={color} className='color' onChange={onChangeColor} />
                         </div>
                     </Layout.Section> 
+                    </Layout.Section>
                 </Layout>
             </div>
             <div className='mb-3 mt-3'>
@@ -267,15 +269,9 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                     </Layout.Section> 
                 </Layout>
             </div>
-            <div className='mb-3'>
+            <div style={{marginTop: '60px'}}>
                 <Layout>
                     <Layout.Section secondary>
-                        <Button size='medium' primary>
-                            <div style={{display:'flex'}}>
-                                <Icon source={QuestionMarkMajor} />
-                                <span style={{padding:'5px 0px 5px 3px'}}>Support</span>
-                            </div>
-                        </Button>
                     </Layout.Section>
                     <Layout.Section>
                         <Button size='large' primary submit={true}>Save</Button>

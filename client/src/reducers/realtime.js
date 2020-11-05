@@ -5,7 +5,7 @@ import {
 } from '../constants/constants';
 
 const initialState = {
-    realtimeSetting: [],
+    realtimeSetting: null,
     error: {},
     loading: true
 };

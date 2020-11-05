@@ -10,10 +10,10 @@ import position_1 from '../../images/position_1.png';
 import position_2 from '../../images/position_2.jpg';
 import position_3 from '../../images/position_3.jpg';
 import position_4 from '../../images/position_4.jpg';
-import { addNotification, getNotification } from '../../actions/notification';
-import Spinner from '../contents/Spinner'
+import { addNotification, getNotification, syncData } from '../../actions/notification';
+import Spinner from '../contents/Spinner';
 
-const NotificationSetting = ({addNotification, notification, getNotification, loading}) => {
+const NotificationSetting = ({addNotification, notification, getNotification, loading, syncData}) => {
     useEffect(() => {
         getNotification();
     }, [getNotification])
@@ -96,6 +96,9 @@ const NotificationSetting = ({addNotification, notification, getNotification, lo
     const [borderRadius, setBorderRadius] = useState(notification.borderRadius);
     const onChangeBorderRadius = (e) => {setBorderRadius([e.target.name]=e.target.value)}
 
+    
+    var today = new Date(),
+    date = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
 
 
     const onChange= (e) => {
@@ -155,6 +158,9 @@ const [formData, setFormData] = useState(initialState);
                 <Spinner />
                 ) : (
                 <div className='mb-3'>
+                    <div style={{textAlign:'right'}}>
+                        <Button primary onClick={() => syncData()}>SYNC DATA</Button>
+                    </div>
                     <form onSubmit={onSubmit}>
                         {/* Show Order */}
                         <div className='mb-3'>
@@ -350,7 +356,7 @@ const [formData, setFormData] = useState(initialState);
                                     <TextStyle variation='strong'>Message display effect</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                    <select name='display' defaultValue={notification.notiDisplay} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                    <select className='option-list' name='display' defaultValue={notification.notiDisplay} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
                                         <optgroup label='Attention Seekers'>
                                             <option value='bounce'>Bounce</option>
                                             <option value='flash'>Flash</option>
@@ -366,6 +372,7 @@ const [formData, setFormData] = useState(initialState);
                                             <option value='bounceInLeft'>Bounce in left</option>
                                         </optgroup>
                                     </select> 
+                                    {console.log(stateEffect)}
                                 </Layout.Section> 
                             </Layout>
                         </div>
@@ -374,7 +381,7 @@ const [formData, setFormData] = useState(initialState);
                                 <TextStyle variation='strong'>Message hidden effect</TextStyle>
                             </Layout.Section>
                             <Layout.Section>
-                                <select name='hidden' defaultValue={notification.notiHidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                <select  className='option-list' name='hidden' defaultValue={notification.notiHidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
                                     <optgroup label='Bouncing Exit'>
                                         <option value='fadeOutBig'>fadeOutBig</option>
                                         <option value='bounceOut'>Bounce Out</option>
@@ -514,12 +521,6 @@ const [formData, setFormData] = useState(initialState);
                         <div className='mb-3 mt-3'>
                             <Layout>
                                 <Layout.Section secondary>
-                                    <Button size='medium' primary>
-                                        <div style={{display:'flex'}}>
-                                            <Icon source={QuestionMarkMajor} />
-                                            <span style={{padding:'5px 0px 5px 3px'}}>Support</span>
-                                        </div>
-                                    </Button>
                                 </Layout.Section>
                                 <Layout.Section>
                                     <Button size='large' primary submit={true}>Save</Button>
@@ -529,7 +530,7 @@ const [formData, setFormData] = useState(initialState);
                         {/* <Notification effect = {display} hide = {hidden} /> */}
                         <div>
                             {stateEffect === true ? (              
-                                <div style={{ borderRadius: `${borderRadius}px`, overflow: 'hidden', bottom: notify === "bottomLeft" ? "4vh" : notify === "topLeft" ? "75vh" :  notify === "bottomRight" ? "4vh" : "75vh" , right: notify === "bottomRight" ? "0" : notify === "topRight" ? "0" : "", animationFillMode: "both, backwards"}} id='show-demo' className= {`animate__animated animate__${hidden} animate__${display} notification`}>
+                                <div style={{ borderRadius: `${borderRadius}px`, overflow: 'hidden', bottom: notify === "bottomLeft" ? "4vh" : notify === "topLeft" ? "75vh" :  notify === "bottomRight" ? "4vh" : "75vh" , right: notify === "bottomRight" ? "0" : notify === "topRight" ? "0" : "", animationFillMode: "backwards"}} id='show-demo' className= {`animate__animated animate__${hidden} animate__${display} notification`}>
                                         <div style={{padding: 0}}>
                                             <div xs='2' style={{display:'flex'}}>
                                                 <div md='4' xs='4' style={{width:'100px'}}>
@@ -537,11 +538,11 @@ const [formData, setFormData] = useState(initialState);
                                                 </div>                          
                                                 <div md='8' xs='8' style={{padding: '0 15px'}} >
                                                     <a href='#' onClick={handleChange} className='hide_demo'>
-                                                        <i className="fa fa-times"></i>
+                                                    <i className="fa fa-times-circle"></i>
                                                     </a>
-                                                    <h5 style={{color: `${color}`}}>Omega in Ha Noi, Viet Nam purchased</h5>
-                                                    <h2 style={{color: `${colorText}`}}>Lorem ipsum dolor</h2>
-                                                    <p style={{color: `${colorDate}`}}>4 hours ago</p>
+                                                    <h5 style={{color: `${color}`, padding: '0 0 6px 10px', fontSize: '16px'}}>Omega in Ha Noi, Viet Nam purchased</h5>
+                                                    <h2 style={{color: `${colorText}`, padding: '0 0 4px 10px', fontWeight: 500}}>Lorem ipsum dolor</h2>
+                                                    <p style={{color: `${colorDate}`, padding: '0 0 8px 10px', fontSize: '12px'}}>Date: { date} </p>
                                                 </div>                           
                                             </div>
                                         </div>
@@ -557,11 +558,12 @@ const [formData, setFormData] = useState(initialState);
 
 NotificationSetting.propTypes = {
     getNotification: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    syncData: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
     loading: state.notification.loading
 })
 
-export default connect(mapStateToProps, {addNotification, getNotification})(NotificationSetting)
+export default connect(mapStateToProps, {addNotification, getNotification, syncData})(NotificationSetting)

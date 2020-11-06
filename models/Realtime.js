@@ -15,10 +15,12 @@ const RealtimeSchema = new mongoose.Schema({
     },
     customView: {
         from: {
-            type: Number
+            type: Number,
+            require: true
         },
         to: {
-            type: Number
+            type: Number,
+            require: true
         }
     },
     customText: {

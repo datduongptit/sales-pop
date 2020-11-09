@@ -391,6 +391,7 @@ thead {
 
 .btn-light {
   background: var(--light-color);
+  border: 1px solid #ccc;
   color: #333;
 }
 
@@ -402,8 +403,9 @@ thead {
 }
 
 .btn-dark {
-  background: var(--dark-color);
-  color: #fff;
+  background: rgb(233,230,230);
+  color: #333;
+  border: 1px solid #ccc;
 }
 
 .btn-success {

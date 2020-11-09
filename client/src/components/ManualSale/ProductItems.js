@@ -26,7 +26,7 @@ const ProductItems = ({getProducts, getProduct, manualSale: {products, loading},
             </div>
             <div>
                 <div style={{padding: '0 5px 5px 0'}}><DeleteButton id={product._id} /></div>
-                <button className="btn btn-primary" onClick={() => getProduct(product._id)}><span>Reset</span></button> 
+                <button className="btn btn-light" onClick={() => getProduct(product._id)}><span>Reset</span></button> 
             </div> 
         </div>
     ])

@@ -6,7 +6,7 @@ const Navbar = () => {
         <div>
             <ButtonGroup>
                 <Button url="#">FAQs</Button>
-                <Button url="https://live-sale-notifications.myshopify.com/pages/document">Document</Button>
+                <Button external url="https://live-sale-notifications.myshopify.com/pages/document">Document</Button>
             </ButtonGroup>
         </div>
     )

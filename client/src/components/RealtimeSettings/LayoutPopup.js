@@ -71,7 +71,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
     formData.backgroundColor = color;
     formData.colorText = colorText;
     formData.customText = customText;
-    const onChange = (e) => {setFormData({...formData, [e.target.name]: e.target.value})};
+    const onChange = (e) => {setFormData({...formData, [e.target.name]: e.target.value})};  
     const onSubmit = (e) => {
         e.preventDefault();
         addRealtimeSetting(formData);
@@ -109,7 +109,7 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                                             name='checked'
                                         />
                                         <div className='gradient' style={{background: `linear-gradient(90deg,${colorLeft}, ${colorRight})`}}>
-                                            <i style={{color: '#ffff'}} className='fa fa-users'></i>
+                                            <i style={{color: '#fff'}} className='fa fa-users'></i>
                                             <span style={{color:`#fff`, fontWeight:600, marginTop: 50, alignItems: 'center', fontSize: 16}}> {customText}
                                             </span>
                                         </div>
@@ -172,11 +172,11 @@ const LayoutPopup = ({addRealtimeSetting, getRealtimeSetting, realtime: {loading
                             <div className='mb-3'>
                                 <div className='mb-3 ml-5'>
                                     <span style={{marginRight: 100, fontWeight:600}}>Min</span>
-                                    <input type='number' name='from' defaultValue={realtimeSetting.customView.from} onChange={onChange} className='input-ssm' />
+                                    <input type='number' name='from' defaultValue={formData.from === "" ? formData.from = "0" : realtimeSetting.customView.from} onChange={onChange} className='input-ssm' />
                                 </div>
                                 <div className='mb-3 ml-5'>
                                     <span style={{marginRight: 100, fontWeight:600}}>Max</span>
-                                    <input type='number' name='to' defaultValue={realtimeSetting.customView.to} onChange={onChange} className='input-ssm' />
+                                    <input type='number' name='to' defaultValue={formData === "" ? "0" : realtimeSetting.customView.to} onChange={onChange} className='input-ssm' />
                                 </div>
                             </div>
                         ) : ''} 

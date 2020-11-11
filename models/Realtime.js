@@ -16,11 +16,9 @@ const RealtimeSchema = new mongoose.Schema({
     customView: {
         from: {
             type: Number,
-            require: true
         },
         to: {
             type: Number,
-            require: true
         }
     },
     customText: {

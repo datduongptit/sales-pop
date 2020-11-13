@@ -337,7 +337,7 @@ const [formData, setFormData] = useState(initialState);
                                     <TextStyle variation='strong'>Custom Text</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                        <input className='input-form' type='text' name= 'customText' value= {customText} onChange={onChangeData}/>
+                                        <input className='input-form' type='text' name= 'customText' defaultValue = {notification.customText} onChange={onChangeData}/>
                                         <p className='note-text p-0'>
                                         If you want to show the customer's name, lets put "%name" you in the text box. Do the same with the customer's city.
                                         Or instead of show the customer's name you can replace "%name" with "Someone". And "%city" it works with city.

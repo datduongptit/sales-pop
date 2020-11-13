@@ -40,7 +40,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
     const [formData, setFormData] = useState(initialState);
     formData.publishOrder = JSON.stringify(checked);
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
-    // console.log(formData);
+    console.log(formData);
     const onSubmit = async (e) => {
       e.preventDefault();
       await updateProduct(products._id, formData);
